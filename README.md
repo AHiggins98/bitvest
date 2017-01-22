@@ -36,12 +36,15 @@ If you prefer to invest into a business directly (and it is accepting it), you c
 ## FAQ
 
 Q. Who owns the businesses?
+
 A. They are owned by all of the shareholders, based on the percentage they contributed to a business.
 
 Q. How can I earn Bitcoin on CoinShare?
+
 A. Tasks can be created with direct payout, equity, or a mixture of both. If you choose the equity option, you may not earn Bitcoin on those shares until a profit is made.
 
 Q. Is this legal?
+
 A. It's all mathematics and numbers floating in space. There is no "real" money here.
 
 ## Future Platform Enhancements
