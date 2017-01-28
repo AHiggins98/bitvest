@@ -1,0 +1,19 @@
+<?php include('header.phtml'); ?>
+
+<form method='post' action='<?=$vars['baseUrl']?>/user/login-submit'>
+<table>
+<tr>
+<td>Email:</td><td> <input type='text'></td>
+</tr>
+<tr>
+<td>Password: </td><td><input type='password'></td>
+<td><a href='<?=$vars['baseUrl']?>/user/forgot-password'>I forgot my password</a> </td>
+</tr>
+<tr>
+<td></td><td> <input type='submit'></td>
+</tr>
+</table>
+</form>
+
+
+<?php include('footer.phtml'); ?>

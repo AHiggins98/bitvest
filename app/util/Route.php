@@ -29,6 +29,8 @@ class Route
       $route = $unfilteredRequestParams['q'];
     }
 
+    $unfilteredRequestParams['route'] = $route;
+
     if (in_array($route, $this->resources)) {
       $routeParts = explode('/', $route);
       $controllerName = Route::toControllerName($routeParts[0]);
