@@ -8,4 +8,9 @@ class HeaderParams
   {
     header($str);
   }
+
+  public function setResponseCode($code)
+  {
+    http_response_code($code);
+  }
 }

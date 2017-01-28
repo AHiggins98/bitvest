@@ -9,6 +9,7 @@ use App\Util\Route;
 $route = new Route();
 
 $route->addResources([
+  'index/index',
   'api/v1/users',
   'api/v1/jobs',
   'api/v1/job_ratings',

@@ -16,9 +16,9 @@ class ApiController
     $this->headers = new HeaderParams();
   }
 
-  public function usersAction($p)
+  public function usersAction(array $unfilteredRequestParams)
   {
     $this->headers->set(self::CONTENT_TYPE_JSON);
-    echo json_encode($p);
+    echo json_encode($unfilteredRequestParams);
   }
 }
