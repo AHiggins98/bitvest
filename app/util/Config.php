@@ -8,7 +8,7 @@ class Config
   public function getConfig()
   {
     if (!isset(self::$config)) {
-      self::$config = include '../app/config.php';
+      self::$config = include '../config.php';
     }
     return self::$config;
   }
