@@ -1,9 +1,6 @@
 <?php
 namespace App\Controller;
 
-require_once '../app/util/View.php';
-require_once '../app/controller/ViewController.php';
-
 use App\Util\View;
 use App\Controller\ViewController;
 

@@ -1,19 +1,17 @@
 <?php
 namespace App\Controller;
 
-require_once '../app/util/View.php';
-require_once '../app/controller/BaseController.php';
-
 use App\Util\View;
+use App\Util\Config;
 
 abstract class ViewController extends BaseController
 {
   protected $view;
 
-  public function __construct()
+  public function __construct(Config $config, View $view)
   {
-    parent::__construct();
-    $this->view = new View();
+    parent::__construct($config);
+    $this->view = $view;
     $this->view->addVars($this->config->getConfig());
   }
 }

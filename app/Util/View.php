@@ -14,6 +14,6 @@ class View
   public function render($view, $vars = [])
   {
     $vars = $this->vars + $vars;
-    include '../app/view/' . $view . '.phtml';
+    include '../app/View/' . $view . '.phtml';
   }
 }

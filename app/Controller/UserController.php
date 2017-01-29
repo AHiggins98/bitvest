@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-require_once '../app/controller/ViewController.php';
-
 class UserController extends ViewController
 {
   public function loginAction(array $unfilteredRequestParams)

@@ -1,19 +1,17 @@
 <?php
 namespace App\Controller;
 
-require_once '../app/util/HeaderParams.php';
-
 use App\Util\HeaderParams;
 
-class ApiController
+class ApiController extends BaseController
 {
   const CONTENT_TYPE_JSON = 'Content-type: application/json';
 
   private $headers;
 
-  public function __construct()
+  public function __construct(HeaderParams $headers)
   {
-    $this->headers = new HeaderParams();
+    $this->headers = $headers;
   }
 
   public function usersAction(array $unfilteredRequestParams)
