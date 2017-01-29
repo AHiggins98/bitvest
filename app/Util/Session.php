@@ -9,6 +9,16 @@ class Session
         session_start();
     }
     
+    public function end()
+    {
+        session_destroy();
+    }
+    
+    public function regenerate()
+    {
+        session_regenerate_id(true);
+    }
+    
     public function set($var, $value)
     {
         $_SESSION[$var] = $value;
@@ -16,6 +26,9 @@ class Session
     
     public function get($var)
     {
-        return $_SESSION[$var];
+        if (isset($_SESSION[$var])) {
+            return $_SESSION[$var];
+        } 
+        return null;
     }
 }

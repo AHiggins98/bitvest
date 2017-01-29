@@ -12,6 +12,9 @@ use App\Util\Config;
 use App\Util\View;
 use App\Util\Session;
 use App\Util\HeaderParams;
+use App\Model\Auth;
+use App\Model\Form\Login;
+use App\Model\Menu;
 
 class Controller
 {
@@ -22,14 +25,18 @@ class Controller
         $config = $di->get(Config::class);
         $view = $di->get(View::class);
         $headers = $di->get(HeaderParams::class);
-        
-        $di->register(IndexController::class, function ($di) use ($config, $view) {
-            return new IndexController($config, $view);
+        $menu = $di->get(Menu::class);
+            
+        $di->register(IndexController::class, function ($di) use ($config, $view, $menu) {
+            $session = $di->get(Session::class);
+            return new IndexController($config, $view, $menu, $session);
         });
         
-        $di->register(UserController::class, function ($di) use ($config, $view, $headers) {
+        $di->register(UserController::class, function ($di) use ($config, $view, $menu, $headers) {
             $session = $di->get(Session::class);
-            return new UserController($config, $view, $session, $headers);
+            $auth = $di->get(Auth::class);
+            $loginForm = $di->get(Login::class);
+            return new UserController($config, $view, $menu, $session, $headers, $auth, $loginForm);
         });
         
         $di->register(HelpController::class, function ($di) use ($config, $view) {

@@ -1,4 +1,11 @@
 <?php include('header.phtml'); ?>
+
+<?php if (isset($vars['message'])) { ?>
+<p><i><?=$vars['message']?></i></p>
+<?php } ?>
+
+<?php if (!$vars['loggedIn']) { ?>
+
 Welcome to CoinShare - Easy Bitcoin Freelancing and Investing!<br>
 <ul>
     <li>Find jobs and earn Bitcoin or stock in a business</li>
@@ -9,4 +16,7 @@ Welcome to CoinShare - Easy Bitcoin Freelancing and Investing!<br>
 </ul>
 
 To get started, <a href='<?=$vars['baseUrl']?>/user/signup'>signup for a new account</a> - it's totally free.
+
+<?php } ?>
+
 <?php include('footer.phtml'); ?>

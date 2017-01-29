@@ -4,38 +4,7 @@
 </head>
 <body>
 
-<?php
-$links = [
-  [
-    'route' => '',
-    'label' => 'CoinShare - Job Listings',
-  ],
-  [
-    'route' => 'user/jobs',
-    'label' => 'My jobs',
-  ],
-  [
-    'route' => 'biz/start',
-    'label' => 'Start a business',
-  ],
-  [
-    'route' => 'user/account',
-    'label' => 'My account',
-  ],
-  [
-    'route' => 'user/login',
-    'label' => 'Login',
-  ],
-  [
-    'route' => 'user/signup',
-    'label' => 'Signup',
-  ],
-  [
-    'route' => 'help/faq',
-    'label' => 'Help',
-  ],
-];
-?>
+<?php $links = $vars['menu']->getLinks(); ?>
 
 <?php foreach ($links as $i => $link) { 
   if ($vars['route'] == 'index/index') {

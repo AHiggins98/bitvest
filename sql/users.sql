@@ -20,5 +20,5 @@ MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 -- b@c.com / pass123
 
 INSERT INTO `users` (`id`, `email`, `password`, `verify_code`, `btc_address`, `btc_password`, `created_ts`, `updated_ts`) VALUES
-(1, 'a@b.com', '*FB6E1F205D675BC29B052DB14CCEFE7759C5FF7E', 'pass123', NULL, NULL, '0000-00-00 00:00:00', NULL),
-(2, 'b@c.com', '*FB6E1F205D675BC29B052DB14CCEFE7759C5FF7E', 'pass123', NULL, NULL, '0000-00-00 00:00:00', NULL);
+(1, 'a@b.com', '$2y$10$cYAmNXFNvE6tQDEDLRO/qujLsnEQTy8DnytyOM6VdcVhBo4e6dhs2', 'pass123', NULL, NULL, '0000-00-00 00:00:00', NULL),
+(2, 'b@c.com', '$2y$10$cYAmNXFNvE6tQDEDLRO/qujLsnEQTy8DnytyOM6VdcVhBo4e6dhs2', 'pass123', NULL, NULL, '0000-00-00 00:00:00', NULL);

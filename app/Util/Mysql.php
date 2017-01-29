@@ -36,13 +36,26 @@ class Mysql
     {
         $stmt = $this->getMysqli()->prepare($query);
         
+        if (!$stmt) {
+            throw new \Exception($this->getMysqli()->error);
+        }
+        
         if (!empty($params)) {
-            $stmt->bind_param($types, $params);
+            $refs = [];
+            foreach ($params as $key => $param) {
+                $refs[$key] = &$param;
+            }
+            $bind = array_merge([$types], $refs);
+            call_user_func_array([$stmt, 'bind_param'], $bind);
         }
        
         $stmt->execute();
         
         $result = $stmt->get_result();
+        
+        if (!$result) {
+            throw new \Exception($this->getMysqli()->error);
+        }
         
         $rows = [];
         
