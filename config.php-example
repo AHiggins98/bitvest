@@ -2,4 +2,8 @@
 
 return [
   'baseUrl' => '/coinshare',
+  'dbUser' => 'coinshare',
+  'dbPass' => 'coinshare',
+  'dbName' => 'coinshare',
+  'dbHost' => '127.0.0.1',
 ];
