@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', true);
 
@@ -23,13 +24,19 @@ Di::getInstance()->get(Controller::class)->register();
 $route = Di::getInstance()->get(Route::class);
 
 $route->addResources([
-  'index/index',
-  'user/login',
-  'api/v1/users',
-  'api/v1/jobs',
-  'api/v1/job_ratings',
-  'api/v1/job_history',
-  'api/v1/btc_transaction_history',
+    'index/index',
+    'user/login',
+    'user/login-submit',
+    'user/signup',
+    'user/signup-submit',
+    'help/faq',
+    'user/account',
+    'biz/start',
+    'api/v1/users',
+    'api/v1/jobs',
+    'api/v1/job_ratings',
+    'api/v1/job_history',
+    'api/v1/btc_transaction_history',
 ]);
 
 $route->dispatch($_REQUEST);
