@@ -26,7 +26,30 @@ class Di
             if (!isset(self::$handlers[$className]) && !class_exists($className)) {               
                 throw new \Exception("Cannot instantiate $className, no handler found");
             } else if (!isset(self::$handlers[$className]) && class_exists($className)) {
-                self::$objects[$className] = new $className;
+                
+                $reflection = new \ReflectionClass($className);
+                $constructor = $reflection->getConstructor();
+                
+                $arguments = [];
+                
+                if ($constructor) {
+                    $constructorParams = $constructor->getParameters();
+                    
+                    foreach ($constructorParams as $s => $param) {                        
+                        $paramType = $param->getClass()->getName();
+                        if (class_exists($paramType)) {                        
+                            $arguments[] = $this->get($paramType);
+                        } else {
+                            throw new \Exception("Cannot auto-resolve parameter $param of $className; define a explicit handler instead.");
+                        }                        
+                    }                    
+                } else {
+                    $arguments = [];
+                }
+                
+                $object = $reflection->newInstanceArgs($arguments);
+                
+                self::$objects[$className] = $object;
             } else {
                 $callable = self::$handlers[$className];
                 self::$objects[$className] = $callable($this);

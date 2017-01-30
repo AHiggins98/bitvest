@@ -9,6 +9,7 @@ use App\Util\HeaderParams;
 use App\Model\Auth;
 use App\Model\Form\Login;
 use App\Model\Menu;
+use App\Model\Form\Signup;
 
 class UserController extends ViewController
 {
@@ -16,25 +17,26 @@ class UserController extends ViewController
     private $headers;
     private $auth;
     private $loginForm;
+    private $signupForm;
     
     public function __construct(Config $config, 
             View $view, Menu $menu, Session $session, 
-            HeaderParams $headers, Auth $auth, Login $loginForm)
+            HeaderParams $headers, Auth $auth, Login $loginForm, Signup $signupForm)
     {
         parent::__construct($config, $view, $menu);
         $this->session = $session;
         $this->headers = $headers;
         $this->auth = $auth;
         $this->loginForm = $loginForm;
+        $this->signupForm = $signupForm;
     }
 
     public function loginAction(array $unfilteredRequestParams)
     {
-        if (isset($unfilteredRequestParams['password'])) {
-            sleep(1);
-        }
         $this->view->addVars($unfilteredRequestParams);
-        $this->view->render('login', ['email' => 'a@b.com']);
+        $vars = $this->loginForm->getVars();
+        $this->view->addVars($vars);
+        $this->view->render('login');
     }
     
     public function loginSubmitAction(array $p)
@@ -43,44 +45,41 @@ class UserController extends ViewController
             
         $login = $this->loginForm->validate($p);
         
-        if (!$login || !$this->auth->checkPassword($login['email'], $login['password'])) {
-            $this->session->set('message', 'Invalid email/password');
+        if ($login['hasErrors']) {
             $this->session->set('loggedIn', false);
+            $this->session->set('formErrors', $login['formErrors']);
             $this->headers->redirect('user/login');
             return;
         }
         
-        $this->session->set('message', 'Successfully logged in as ' . $login['email']);
+        $this->session->set('message', 'Successfully logged in as ' . $login['formValues']['email']);
         $this->session->set('loggedIn', true);
+        $this->session->set('email', $login['formValues']['email']);
         $this->headers->redirect('');
     }
     
     public function signupAction(array $unfilteredRequestParams)
     {
         $this->view->addVars($unfilteredRequestParams);
+        
+        $vars = $this->signupForm->getVars();
+        $this->view->addVars($vars);
+        
         $this->view->render('signup');
     }
     
     public function signupSubmitAction(array $unfilteredRequestParams)
     {
-        if (isset($unfilteredRequestParams['email']) && 
-            isset($unfilteredRequestParams['password'])) {
-            
-            $email = $unfilteredRequestParams['email'];
-            $password = $unfilteredRequestParams['password'];
-            
-            if (empty($email) || empty($password)) {
-                $this->session->set('message', 'Email/password required.');
-                $this->headers->redirect('/user/signup');
-                return;
-            }
-            
-            $this->view->addVars($unfilteredRequestParams);
-            $this->view->render('confirm-sent');
-            
-        } else {
-            $this->view->render('error');
+        $signup = $this->signupForm->validate($unfilteredRequestParams);
+        
+        if ($signup['hasErrors']) {
+            $this->session->set('formErrors', $signup['formErrors']);
+            $this->headers->redirect('user/signup');
+            return;
         }
+        
+        $this->session->set('message', 'Confirmation email has been sent. Please check your email to login.');
+        $this->headers->redirect('');
     }
     
     public function accountAction(array $params)

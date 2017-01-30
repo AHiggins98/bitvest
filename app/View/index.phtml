@@ -1,18 +1,19 @@
 <?php include('header.phtml'); ?>
 
 <?php if (isset($vars['message'])) { ?>
-<p><i><?=$vars['message']?></i></p>
+<p><i><span style='color:orangered'><?=$vars['message']?></span></i></p>
 <?php } ?>
 
 <?php if (!$vars['loggedIn']) { ?>
 
 Welcome to CoinShare - Easy Bitcoin Freelancing and Investing!<br>
 <ul>
-    <li>Find jobs and earn Bitcoin or stock in a business</li>
+    <li>Peer-to-peer freelancing</li>
+    <li>Find jobs and earn Bitcoin or shares in a business operation</li>
     <li>Invest in Bitcoin businesses</li>
     <li>Reap rewards of investment and shares directly in Bitcoin</li>
     <li>Instantly start your own Bitcoin business</li>
-    <li>No paperwork!</li>
+    <li>Completely anonymous! We never collect or share your information.</li>
 </ul>
 
 To get started, <a href='<?=$vars['baseUrl']?>/user/signup'>signup for a new account</a> - it's totally free.

@@ -23,14 +23,14 @@ class Validator
             self::AZ . strtoupper(self::AZ) . self::NUMS . self::SPECIAL);
     }
    
-    public function isValidEmail($email)
+    public function isValidEmailString($email)
     {
         return strlen($email) >= self::MIN_EMAIL_LENGTH && 
                strlen($email) <= self::MAX_EMAIL_LENGTH &&
                $this->isEmailChars($email);
     }
     
-    public function isValidPasswordLength($password)
+    public function isValidPasswordString($password)
     {
         return strlen($password) >= self::MIN_PASSWORD_LENGTH &&
                strlen($password) <= self::MAX_PASSWORD_LENGTH &&

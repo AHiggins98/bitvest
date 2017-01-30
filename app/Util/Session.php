@@ -11,7 +11,7 @@ class Session
     
     public function end()
     {
-        session_destroy();
+        session_destroy();  
     }
     
     public function regenerate()

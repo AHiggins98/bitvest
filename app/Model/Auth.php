@@ -15,6 +15,7 @@ class Auth
     
     public function checkPassword($email, $password)
     {
+        sleep(1);
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $query = 'select password from users where email = ?';
         $params = [
