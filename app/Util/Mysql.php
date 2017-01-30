@@ -42,19 +42,25 @@ class Mysql
         
         if (!empty($params)) {
             $refs = [];
+            
             foreach ($params as $key => $param) {
-                $refs[$key] = &$param;
+                $refs[$key] = &$params[$key];
             }
+            
             $bind = array_merge([$types], $refs);
-            call_user_func_array([$stmt, 'bind_param'], $bind);
+            call_user_func_array([$stmt, 'bind_param'], $bind);            
         }
        
         $stmt->execute();
         
         $result = $stmt->get_result();
         
+        if (!$result && $stmt->errno) {
+            throw new \Exception('Mysql error: ' . $stmt->error);
+        }
+        
         if (!$result) {
-            throw new \Exception($this->getMysqli()->error);
+            return $stmt->affected_rows;
         }
         
         $rows = [];

@@ -30,6 +30,7 @@ $route->addResources([
     'user/signup',
     'user/signup-submit',
     'user/logout',
+    'user/verify',
     'help/faq',
     'user/account',
     'biz/start',
