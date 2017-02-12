@@ -27,7 +27,7 @@ class Email
         }
         $properTemplate = implode("\r\n", $properTemplateLines) . "\r\n";
         
-        $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@coinshare.org\r\nReply-to: support@coinshare.org");
+        $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@whebsite.com\r\nReply-to: support@whebsite.com");
         
         if (!$result) {
             throw new \Exception('Not accepted for delivery');

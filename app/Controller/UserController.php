@@ -38,8 +38,15 @@ class UserController extends ViewController
     public function loginAction(array $unfilteredRequestParams)
     {
         $this->view->addVars($unfilteredRequestParams);
-        $vars = $this->loginForm->getVars();
-        $this->view->addVars($vars);
+        
+        $loginFormState = $this->session->get('loginFormState');
+        
+        if (isset($loginFormState)) {
+            $this->view->addVars($loginFormState);
+        } else {
+            $this->view->addVars($this->loginForm->getState());
+        }
+        
         $this->view->render('login');
     }
     
@@ -47,41 +54,53 @@ class UserController extends ViewController
     {
         $this->session->regenerate();
             
-        $login = $this->loginForm->validate($p);
+        $this->loginForm->validate($p);
         
-        if ($login['hasErrors']) {
+        if ($this->loginForm->hasErrors()) {
             $this->session->set('loggedIn', false);
-            $this->session->set('formErrors', $login['formErrors']);
+            $this->session->set('loginFormState', $this->loginForm->getState());
             $this->headers->redirect('user/login');
             return;
         }
         
-        $this->successfulLogin($login['formValues']['email']);
+        $this->successfulLogin($this->loginForm->getValue('email'));
     }
     
     public function signupAction(array $unfilteredRequestParams)
     {
         $this->view->addVars($unfilteredRequestParams);
         
-        $vars = $this->signupForm->getVars();
-        $this->view->addVars($vars);
+        $signupFormState = $this->session->get('signupFormState');
+        
+        if (isset($signupFormState)) {
+            $this->view->addVars($signupFormState);
+        } else {
+            $this->view->addVars($this->signupForm->getState());
+        }
         
         $this->view->render('signup');
     }
     
     public function signupSubmitAction(array $unfilteredRequestParams)
     {
-        $signup = $this->signupForm->validate($unfilteredRequestParams);
+        $this->signupForm->validate($unfilteredRequestParams);
         
-        if ($signup['hasErrors']) {
-            $this->session->set('formErrors', $signup['formErrors']);
+        if ($this->signupForm->hasErrors()) {
+            $this->session->set('signupFormState', $this->signupForm->getState());
             $this->headers->redirect('user/signup');
             return;
         }
         
-        $this->users->add($signup['formValues']['email'], $signup['formValues']['password']);
+        // Add user
         
-        $this->session->set('message', 'Confirmation email has been sent. Please check your email to login.');
+        $this->users->add(
+            $this->signupForm->getValue('email'), 
+            $this->signupForm->getValue('password')
+        );
+        
+        $this->session->set('message', 
+                'Confirmation email has been sent. Please check your email to login.');
+        
         $this->headers->redirect('');
     }
     

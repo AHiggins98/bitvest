@@ -31,4 +31,9 @@ class Session
         } 
         return null;
     }
+    
+    public function delete($var)
+    {
+        unset($_SESSION[$var]);
+    }
 }

@@ -6,7 +6,7 @@ use App\Util\Validator;
 use App\Model\Auth;
 use App\Util\Session;
 
-class Login
+class Login extends AbstractForm
 {
     private $validator;
     private $auth;
@@ -14,55 +14,28 @@ class Login
     
     public function __construct(Validator $validator, Session $session, Auth $auth)
     {
+        parent::__construct(['email', 'password']);
         $this->validator = $validator;
         $this->session = $session;
         $this->auth = $auth;
-    }
-    
-    public function getVars()
-    {
-        $hasErrors = $this->session->get('hasErrors');
-        $formErrors = $this->session->get('formErrors');
-        $email = $this->session->get('formValues')['email'];
-        
-        $this->session->set('hasErrors', false);
-        $this->session->set('formErrors', ['email' => '']);
-        $this->session->set('formValues', ['email' => '']);
-        
-        return [
-            'hasErrors' => $hasErrors,
-            'formErrors' => $formErrors,
-            'formValues' => [
-                'email' => $email,
-            ],
-        ];
     }
     
     public function validate(array $params)
     {
         if (isset($params['email']) && isset($params['password'])) {
          
-            $hasErrors = false;
-            $errors = [
-                'email' => '',
-            ];
+            $this->hasErrors = false;
             
             $validEmailChars = $this->validator->isEmailChars($params['email']);
             $validPasswordChars = $this->validator->isPasswordChars($params['password']);
             $correctPassword = $this->auth->checkPassword($params['email'], $params['password']);
         
             if (!$validEmailChars || !$validPasswordChars || !$correctPassword) {
-                $errors['email'] = 'Incorrect email/password.';
-                $hasErrors = true;
+                $this->errors['email'] = 'Incorrect email/password.';
+                $this->hasErrors = true;
             } 
             
-            return [
-                'hasErrors' => $hasErrors,
-                'formErrors' => $errors,
-                'formValues' => [
-                    'email' => $params['email'],
-                ],
-            ];
+            $this->values['email'] = $params['email'];
             
         } else {
             throw new \Exception('Missing form parameters.');

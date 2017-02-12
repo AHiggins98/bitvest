@@ -6,7 +6,7 @@ use App\Util\Validator;
 use App\Model\Users;
 use App\Util\Session;
 
-class Signup
+class Signup extends AbstractForm
 {
     private $validator;
     private $users;
@@ -14,28 +14,10 @@ class Signup
     
     public function __construct(Validator $validator, Users $users, Session $session)
     {
+        parent::__construct(['email', 'password']);
         $this->validator = $validator;
         $this->users = $users;
         $this->session = $session;
-    }
-    
-    public function getVars()
-    {
-        $hasErrors = $this->session->get('hasErrors');
-        $formErrors = $this->session->get('formErrors');
-        $email = $this->session->get('formValues')['email'];
-        
-        $this->session->set('hasErrors', false);
-        $this->session->set('formErrors', ['email' => '', 'password' => '']);
-        $this->session->set('formValues', ['email' => '']);
-        
-        return [
-            'hasErrors' => $hasErrors,
-            'formErrors' => $formErrors,
-            'formValues' => [
-                'email' => $email,
-            ],
-        ];
     }
     
     public function validate(array $params)
@@ -44,13 +26,8 @@ class Signup
          
             $validEmail = $this->validator->isValidEmailString($params['email']);
             
-            $errors = [
-                'email' => '',
-                'password' => '',
-            ];
-            
             if (!$validEmail) {
-                $errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH . 
+                $this->errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH . 
                         ' and ' . Validator::MAX_EMAIL_LENGTH . ' characters in' . 
                         ' with an @ symbol.';
             }
@@ -58,23 +35,17 @@ class Signup
             $validPassword = $this->validator->isValidPasswordString($params['password']);
             
             if (!$validPassword) {
-                $errors['password'] = 'Password must be between ' . Validator::MIN_PASSWORD_LENGTH . 
+                $this->errors['password'] = 'Password must be between ' . Validator::MIN_PASSWORD_LENGTH . 
                         ' and ' . Validator::MAX_PASSWORD_LENGTH . ' characters.';
             }
             
             $emailExists = $this->users->emailExists($params['email']);
             
             if ($emailExists) {
-                $errors['email'] = 'An account already exists with that email address.';
+                $this->errors['email'] = 'An account already exists with that email address.';
             }
             
-            return [
-                'hasErrors' => $emailExists || !$validEmail || !$validPassword,
-                'formErrors' => $errors,
-                'formValues' => [
-                    'email' => $params['email'],
-                ],
-            ];
+            $this->hasErrors = $emailExists || !$validEmail || !$validPassword;
             
         } else {
             throw new \Exception('Missing form parameters.');
