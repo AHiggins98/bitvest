@@ -20,11 +20,33 @@ class Menu
         $links = [
             [
                 'route' => '',
-                'label' => 'CoinShare - Job Listings',
+                'label' => 'Home',
             ]
+        ];
+        
+        $links[] = [
+            'route' => 'share/exchange',
+            'label' => 'Markets',
+        ];
+
+        $links[] = [
+            'route' => 'jobs/list',
+            'label' => 'Jobs',
+        ];
+
+        $links[] = [
+            'route' => 'biz/list',
+            'label' => 'Businesses',
+        ];
+        
+        $links[] = [
+            'route' => 'forums/list',
+            'label' => 'Forums',
         ];
 
         if (!$this->session->get('loggedIn')) {
+            
+            
             $links[] = [
                 'route' => 'user/login',
                 'label' => 'Login',
@@ -34,7 +56,9 @@ class Menu
                 'route' => 'user/signup',
                 'label' => 'Signup',
             ];
+            
         } else {
+            
             $links[] = [
                 'route' => 'user/jobs',
                 'label' => 'My jobs',
@@ -49,17 +73,17 @@ class Menu
                 'route' => 'user/account',
                 'label' => 'My account',
             ];
-
+            
             $links[] = [
                 'route' => 'user/logout',
                 'label' => 'Logout',
             ];
         }
 
-        $links[] = [
-            'route' => 'help/faq',
-            'label' => 'Help',
-        ];
+//        $links[] = [
+//            'route' => 'help/faq',
+//            'label' => 'Help',
+//        ];
         
         return $links;
     }
