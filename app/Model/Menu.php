@@ -25,7 +25,7 @@ class Menu
         ];
         
         $links[] = [
-            'route' => 'share/exchange',
+            'route' => 'markets',
             'label' => 'Markets',
         ];
 
@@ -58,17 +58,7 @@ class Menu
             ];
             
         } else {
-            
-            $links[] = [
-                'route' => 'user/jobs',
-                'label' => 'My jobs',
-            ];
-
-            $links[] = [
-                'route' => 'biz/start',
-                'label' => 'Start a business',
-            ];
-
+           
             $links[] = [
                 'route' => 'user/account',
                 'label' => 'My account',

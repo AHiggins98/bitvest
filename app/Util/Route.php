@@ -38,8 +38,10 @@ class Route {
             if (isset($routeParts[2])) {
                 $unfilteredRequestParams['version'] = $routeParts[1];
                 $actionName = Route::toControllerActionName($routeParts[2]);
-            } else {
+            } else if (isset($routeParts[1])) {
                 $actionName = Route::toControllerActionName($routeParts[1]);
+            } else {
+                $actionName = Route::toControllerActionName('index');
             }
 
             $fullyQualifiedControllerName = "App\Controller\\$controllerName";

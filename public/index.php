@@ -34,11 +34,13 @@ $route->addResources([
     'help/faq',
     'user/account',
     'biz/start',
+    'biz/list',
     'api/v1/users',
     'api/v1/jobs',
     'api/v1/job_ratings',
     'api/v1/job_history',
     'api/v1/btc_transaction_history',
+    'markets',
 ]);
 
 try {
