@@ -47,7 +47,7 @@ class UserController extends ViewController
             $this->view->addVars($this->loginForm->getState());
         }
         
-        $this->view->render('login');
+        $this->view->render('user/login');
     }
     
     public function loginSubmitAction(array $p)
@@ -78,7 +78,7 @@ class UserController extends ViewController
             $this->view->addVars($this->signupForm->getState());
         }
         
-        $this->view->render('signup');
+        $this->view->render('user/signup');
     }
     
     public function signupSubmitAction(array $unfilteredRequestParams)
