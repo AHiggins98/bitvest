@@ -1,5 +1,5 @@
-# coinshare
-CoinShare - Community-powered Bitcoin business platform
+# bitvest
+Bitvest - Community-powered Bitcoin business platform
 
 TL;DR: A platform for contributor-owned businesses (people like you!) to earn Bitcoin, invest Bitcoin, and gain Bitcoin equity.
 
@@ -9,11 +9,11 @@ Kickstarter is cool, but you know what would be really cool? If you could invest
 
 Imagine if you could contribute your design skills, coding skills, or marketing skills to a business idea in your spare time. Just a few hours to earn a few shares in a business. And the business takes off! It's like working for a startup without all the pain and suffering of getting hired, commuting everyday, and other nonsense.
 
-Traditional models of business make it difficult to do this because of an incomprehensible pile of red tape, paperwork, and procedures that must be filed to start a business, maintain it, and hire employees. Bitcoin makes it easy to ignore all of that nonsense, and CoinShare is the platform that will power this movement.
+Traditional models of business make it difficult to do this because of an incomprehensible pile of red tape, paperwork, and procedures that must be filed to start a business, maintain it, and hire employees. Bitcoin makes it easy to ignore all of that nonsense, and Bitvest is the platform that will power this movement.
 
-CoinShare lets you choose which projects to contribute to, and what amount of time you can spare. There are no commitments, other than to specific tasks (or bounties) you've selected for yourself.
+Bitvest lets you choose which projects to contribute to, and what amount of time you can spare. There are no commitments, other than to specific tasks (or bounties) you've selected for yourself.
 
-Anyone can start a CoinShare business with a click of a button. The platform handles distribution of ownership (shares) based on the tasks completed. The more you contribute, the more you will own in the success of the business.
+Anyone can start a Bitvest business with a click of a button. The platform handles distribution of ownership (shares) based on the tasks completed. The more you contribute, the more you will own in the success of the business.
 
 Decisions of the business is based on shareholder majority. That way, businesses are truly owned and operated by the contributors.
 
@@ -39,7 +39,7 @@ Q. Who owns the businesses?
 
 A. They are owned by all of the shareholders, based on the percentage they contributed to a business.
 
-Q. How can I earn Bitcoin on CoinShare?
+Q. How can I earn Bitcoin on Bitvest?
 
 A. Tasks can be created with direct payout, equity, or a mixture of both. If you choose the equity option, you may not earn Bitcoin on those shares until a profit is made.
 
@@ -49,7 +49,7 @@ A. It's all mathematics and numbers floating in space. There is no "real" money 
 
 ## Future Platform Enhancements
 
-* Buying and selling shares on the CoinShare marketplace
+* Buying and selling shares on the Bitvest marketplace
 * Adding assets via trustee
 
 ## Potential Businesses
