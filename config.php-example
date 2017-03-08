@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'baseUrl' => '/coinshare',
+  'baseUrl' => '/bitvest',
   'dbUser' => 'coinshare',
   'dbPass' => 'coinshare',
   'dbName' => 'coinshare',
