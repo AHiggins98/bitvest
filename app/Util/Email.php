@@ -39,6 +39,7 @@ class Email
         }
         $properTemplate = implode("\r\n", $properTemplateLines) . "\r\n";
         
+        // @codeCoverageIgnoreStart
         if ($this->emailEnabled) {
             $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@whebsite.com\r\nReply-to: support@whebsite.com");            
         } else {
@@ -56,5 +57,6 @@ class Email
         if (!$result) {
             throw new \Exception('Not accepted for delivery');
         }
+        // @codeCoverageIgnoreEnd
     }
 }

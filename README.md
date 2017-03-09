@@ -1,6 +1,8 @@
 # bitvest
 Bitvest - Community-powered Bitcoin business platform
 
+[![Build Status](https://travis-ci.org/thorie7912/bitvest.svg?branch=master)](https://travis-ci.org/thorie7912/bitvest)
+
 TL;DR: A platform for contributor-owned businesses (people like you!) to earn Bitcoin, invest Bitcoin, and gain Bitcoin equity.
 
 ## Summary

@@ -4,6 +4,9 @@ namespace App\Util;
 
 use App\Util\Config;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Mysql
 {
     static $mysqli;

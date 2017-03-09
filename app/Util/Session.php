@@ -2,6 +2,9 @@
 
 namespace App\Util;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Session
 {
     public function __construct()

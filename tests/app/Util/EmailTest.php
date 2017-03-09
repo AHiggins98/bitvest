@@ -9,7 +9,15 @@ class EmailTest extends \PHPUnit_Framework_TestCase
      */
     public function testSendWithTemplate()
     {
-        $email = new Email();
+        $mockConfig = $this->getMockBuilder(Config::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        
+        $mockSession = $this->getMockBuilder(Session::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        
+        $email = new Email($mockConfig, $mockSession);
         $params = [
             'email' => 'support@whebsite.com',
             'subject' => 'CoinShare - Please verify your email address',
