@@ -4,6 +4,10 @@
 <p><i><span style='color:orangered'><?=$vars['message']?></span></i></p>
 <?php } ?>
 
+<?php if (isset($vars['mailMessage'])) { ?>
+<p><i><span style='color:orangered'><?=$vars['mailMessage']?></span></i></p>
+<?php } ?>
+
 <?php if (!$vars['loggedIn']) { ?>
 
 <h4>What is Bitvest.org?</h4>

@@ -47,6 +47,11 @@ class Signup extends AbstractForm
             
             $this->hasErrors = $emailExists || !$validEmail || !$validPassword;
             
+            if (!$this->hasErrors) {
+                $this->values['email'] = $params['email'];
+                $this->values['password'] = $params['password'];
+            }
+            
         } else {
             throw new \Exception('Missing form parameters.');
         }

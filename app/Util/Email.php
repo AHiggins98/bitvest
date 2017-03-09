@@ -2,8 +2,20 @@
 
 namespace App\Util;
 
+use App\Util\Config;
+use App\Util\Session;
+
 class Email
 {
+    private $emailEnabled;
+    private $session;
+    
+    public function __construct(Config $config, Session $session)
+    {
+        $this->emailEnabled = $config->get('emailEnabled');
+        $this->session = $session;
+    }
+    
     public function send($template, array $vars)
     {
         if (!isset($vars['email']) || !isset($vars['subject'])) {
@@ -27,7 +39,19 @@ class Email
         }
         $properTemplate = implode("\r\n", $properTemplateLines) . "\r\n";
         
-        $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@whebsite.com\r\nReply-to: support@whebsite.com");
+        if ($this->emailEnabled) {
+            $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@whebsite.com\r\nReply-to: support@whebsite.com");            
+        } else {
+            $msg = '<pre>';
+            $msg .= "Displaying this email in your browser because your configuration has emailEnabled=false.\n";
+            $msg .= "To: {$vars['email']}\n";
+            $msg .= "Subject: {$vars['subject']}\n";
+            $msg .= "Body:\n";
+            $msg .= $properTemplate;
+            $msg .= '</pre>';
+            $this->session->set('mailMessage', $msg);
+            $result = true;
+        }
         
         if (!$result) {
             throw new \Exception('Not accepted for delivery');

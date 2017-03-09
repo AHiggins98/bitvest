@@ -1,4 +1,4 @@
-Thank you for signing up with CoinShare!
+Thank you for signing up with Bitvest!
 
 Please verify your email by clicking the link below:
 

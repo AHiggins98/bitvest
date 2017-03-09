@@ -91,7 +91,7 @@ class UserController extends ViewController
             return;
         }
         
-        // Add user
+        // Add user and send confirmation email
         
         $this->users->add(
             $this->signupForm->getValue('email'), 

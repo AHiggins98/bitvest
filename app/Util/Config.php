@@ -17,6 +17,9 @@ class Config
 
     public function get($var)
     {
+        if (!isset($this->getConfig()[$var])) {
+            throw new \Exception("Config variable `$var` must be defined in config.php");
+        }
         return $this->getConfig()[$var];
     }
 }

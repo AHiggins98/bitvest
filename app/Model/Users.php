@@ -45,7 +45,7 @@ class Users
         
         $emailParams = [
             'email' => $email,
-            'subject' => 'CoinShare - Please verify your email address',
+            'subject' => 'Bitvest - Please verify your email address',
             'verifyLink' => $this->config->get('baseUrl') . '/user/verify?verifyCode=' . $verifyCode . '&email=' . $email,
         ];
         
