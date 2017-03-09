@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `businesses` (
 
 ALTER TABLE `businesses`
  ADD PRIMARY KEY (`id`), 
- ADD UNIQUE KEY `businessname` (`businessname`);
+ ADD UNIQUE KEY `businessname` (`businessname`),
  ADD UNIQUE KEY `shortname` (`shortname`);
 
 ALTER TABLE `businesses`
