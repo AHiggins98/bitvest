@@ -12,6 +12,11 @@ class UsersTest extends PHPUnit_Framework_TestCase
      */
     public function testEmailExists()
     {
+        $mockSession = $this->getMockBuilder(Session::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+                
+        Di::getInstance()->set(Session::class, $mockSession);
         $users = Di::getInstance()->get(Users::class);
         $this->assertTrue($users->emailExists('a@b.com'));
     }

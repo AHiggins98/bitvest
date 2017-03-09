@@ -19,6 +19,11 @@ class Di
         return self::$instance;
     }
     
+    public function set($className, $object)
+    {
+        self::$objects[$className] = $object;
+    }
+    
     public function get($className)
     {
         if (!isset(self::$objects[$className])) {
