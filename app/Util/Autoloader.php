@@ -10,6 +10,11 @@ class Autoloader
                     '/../' . 
                     str_replace(['App', '\\'], ['', '/'], $className) 
                     . '.php';
+            
+            if (!is_readable($file)) {
+                return;
+            }
+            
             include $file;
         });
     }

@@ -5,6 +5,7 @@ php:
 
 install:
   - composer install
+  - cp config.php-example config.php
 
 script:
   - vendor/bin/phpunit --debug --exclude-group db --coverage-clover ./clover.xml

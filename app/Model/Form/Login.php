@@ -20,6 +20,13 @@ class Login extends AbstractForm
         $this->auth = $auth;
     }
     
+    /**
+     * Validates the parameters. If the validation passes, the class values
+     * will be updated to what was submitted.
+     * 
+     * @param array $params
+     * @throws \Exception
+     */
     public function validate(array $params)
     {
         if (isset($params['email']) && isset($params['password'])) {
