@@ -8,3 +8,4 @@ install:
 
 script:
   - vendor/bin/phpunit --debug --exclude-group db
+  - php coverage-checker.php clover.xml 24
