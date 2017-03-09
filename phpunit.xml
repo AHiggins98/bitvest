@@ -6,12 +6,10 @@
   </testsuites>
   <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <!-- this is the path of the files included in your clover report -->
             <directory suffix=".php">./app</directory>
         </whitelist>
     </filter>
-    <logging>
-        <!-- and this is where your report will be written -->
+    <!--<logging>
         <log type="coverage-clover" target="./clover.xml"/>
-    </logging>
+    </logging>-->
 </phpunit>

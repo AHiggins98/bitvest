@@ -1,6 +1,9 @@
 <?php
 namespace App\Util;
 
+/**
+ * @codeCoverageIgnore
+ */
 class HeaderParams
 {
     public function set($str)
