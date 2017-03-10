@@ -26,22 +26,22 @@ class CreateBusiness extends AbstractForm
 
           // copied from formproc.phtml
 
-    if(!isset($_POST['foundername']) ||
+    if(!isset($params['foundername']) ||
  
-        !isset($_POST['businessname']) ||
+        !isset($params['businessname']) ||
 
-        !isset($_POST['shortname']) {
+        !isset($params['shortname']) {
  
         died('Fields marked "*" are required!');       
  
     }
 
  
-    $foundername = $_POST['foundername']; 
+    $foundername = $params['foundername']; 
  
-    $businessname = $_POST['businessname']; 
+    $businessname = $params['businessname']; 
  
-    $shortname = $_POST['shortname']; 
+    $shortname = $params['shortname']; 
  
     $error_message = "";
  
