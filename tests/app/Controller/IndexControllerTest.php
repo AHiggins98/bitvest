@@ -5,6 +5,7 @@ use App\Util\Config;
 use App\Util\View;
 use App\Model\Menu;
 use App\Util\Session;
+use App\Model\Form\Login;
 
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,6 +18,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
             View::class,
             Menu::class,
             Session::class,
+            Login::class,
         ]);
         
         $this->mocks[Config::class]->expects($this->any())
@@ -27,7 +29,8 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
             $this->mocks[Config::class],
             $this->mocks[View::class],
             $this->mocks[Menu::class],
-            $this->mocks[Session::class]
+            $this->mocks[Session::class],
+            $this->mocks[Login::class]
         );
     }
     
@@ -41,6 +44,10 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $this->mocks[View::class]->expects($this->once())
                 ->method('render')
                 ->with('index', ['message' => null, 'mailMessage' => null, 'loggedIn' => null]);
+        
+        $this->mocks[Login::class]->expects($this->once())
+                ->method('getState')
+                ->willReturn([]);
         
         $indexController->indexAction($params);
     }

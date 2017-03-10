@@ -1,7 +1,11 @@
 <?php include('header.phtml'); ?>
 
-<h3 class="muted">Home</h3>
+<h3 class="muted">Bitvest &raquo; Home</h3>
 
+<div class="row">
+    
+    <div class="span6">
+    
 <?php if (isset($vars['message'])) { ?>
 <p><i><span style='color:orangered'><?=$vars['message']?></span></i></p>
 <?php } ?>
@@ -10,28 +14,50 @@
 <p><i><span style='color:orangered'><?=$vars['mailMessage']?></span></i></p>
 <?php } ?>
 
-<?php if (!$vars['loggedIn']) { ?>
-
-<h4>What is Bitvest.org?</h4>
-<p>
-    Bitvest.org is a freelancing site that offers both traditional direct payout and
-    share-based payout. Shares can offer dividends, or can be sold in the
-    marketplace just like a stock market exchange. The best part, though, is that
-    it's completely free and private. Earnings and dividends are paid in Bitcoin,
-    and you never have to supply your name or other identification. It's an open,
-    private, international free-market digital economy.
+<p class="lead">
+    Bicoin-powered freelancing. Earn Bitcoin and Bitcoin dividends. Be a 
+    shareholder in a digital, autonomous corporation. Your privacy, protected.
 </p>
-<h4>Why share-based payout?</h4>
+
+<h4>Learn More</h4>
+
+<ul>
+    <li><a href="">What is Bitcoin?</a></li>
+    <li><a href="">What makes Bitvest different from other freelancing sites?</a></li>
+</ul>
+
+<!--
 <p>
-    While direct payout is simpler, becoming a part-owner can be a huge incentive 
-    to do higher quality work. This incentive also helps teams that lack capital. 
-    By owning shares, workers can build a long-term investment portfolio for
-    passive income opportunity or selling shares at greater profit later.
+    Traditional businesses operate with the notion of "owners" and "employees".
+    The lion's share of the profits typically go to the owners, while the 
+    compensation of hard-working employees is often a small penance in comparison.
+    Starting a business can also be a mountain of paperwork and fees that means
+    only a privileged few can afford to do. Bitvest throws all of this out
+    the window.
 </p>
-<h4>How do I join?</h4>
+    With Bitvest, anyone can start a business and anyone can contribute to a 
+    business. Contributors become shareholders/owners (if they choose to earn
+    shares rather than direct Bitcoin). Over time, these shares can become 
+    valuable in themselves earning Bitcoin dividends, or sold on a digital
+    stock exchange.
+</p>
+-->
 
-Just signup for a free account here: <a href='<?=$vars['baseUrl']?>/user/signup'><button class='btn btn-primary'>Signup for a free account</button></a>
+<div class="text-center">
+    <hr>
+    <b>Ready to get started?</b><br>
+<a href='<?=$vars['baseUrl']?>/user/signup'><button class='btn btn-success btn-large'>Signup Now</button></a>
+</div>
 
-<?php } ?>
+    </div><!-- left div -->
+    
+    <div class="span6">
+        <div class="muted text-center">Login with an existing account</div>
+        <hr>
+        <?php include('user/login-form.phtml'); ?>
+        
+    </div><!-- right div -->
+
+</div>
 
 <?php include('footer.phtml'); ?>
