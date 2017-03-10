@@ -1,8 +1,10 @@
-<?php include('header.phtml'); ?>
+<?php include(__DIR__ . '/../header.phtml'); ?>
 
 <h3 class="muted">User &raquo; My account</h3>
 
-<b>Account Information</b><br>
+<?php if (isset($vars['message'])) { ?>
+<div class="alert alert-success"><?=$vars['message']?></div>
+<?php } ?>
 
 <p>
     BTC Balance: 0.000000<br>
@@ -31,5 +33,4 @@ BTC Deposit Address: ajf48f939fj03f93f934f304f03f4934fkffjiewf<br>
 </table>
 </p>
     
-
-<?php include('footer.phtml'); ?>
+<?php include(__DIR__ . '/../footer.phtml'); ?>

@@ -106,8 +106,14 @@ class UserController extends ViewController
     
     public function accountAction(array $params)
     {
-        $this->view->addVars($params);
-        $this->view->render('account');
+        $vars = [
+            'message' => $this->session->getOnce('message'),
+        ];
+        
+        $vars += $params;
+        
+        $this->view->addVars($vars);
+        $this->view->render('user/account');
     }
     
     public function logoutAction()
@@ -127,6 +133,6 @@ class UserController extends ViewController
         $this->session->set('message', 'Successfully logged in as ' . $email);
         $this->session->set('loggedIn', true);
         $this->session->set('email', $email);
-        $this->headers->redirect('');
+        $this->headers->redirect('user/account');
     }
 }

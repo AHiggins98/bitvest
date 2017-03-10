@@ -76,7 +76,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         
         $this->mocks[HeaderParams::class]->expects($this->once())
                 ->method('redirect')
-                ->with('');
+                ->with('user/account');
         
         $userController->loginSubmitAction($params);
     }

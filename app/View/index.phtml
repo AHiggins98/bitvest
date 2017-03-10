@@ -6,13 +6,13 @@
     
     <div class="span6">
     
-<?php if (isset($vars['message'])) { ?>
-<p><i><span style='color:orangered'><?=$vars['message']?></span></i></p>
-<?php } ?>
+        <?php if (isset($vars['message'])) { ?>
+        <div class="alert alert-success"><?=$vars['message']?></div>
+        <?php } ?>
 
-<?php if (isset($vars['mailMessage'])) { ?>
-<p><i><span style='color:orangered'><?=$vars['mailMessage']?></span></i></p>
-<?php } ?>
+        <?php if (isset($vars['mailMessage'])) { ?>
+        <p><i><span style='color:orangered'><?=$vars['mailMessage']?></span></i></p>
+        <?php } ?>
 
 <p class="lead">
     Bicoin-powered freelancing. Earn Bitcoin and Bitcoin dividends. Be a 
