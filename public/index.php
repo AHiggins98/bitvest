@@ -9,15 +9,9 @@ require_once '../app/Util/Di.php';
 use App\Util\Autoloader;
 use App\Util\Di;
 use App\Util\Route;
-use App\Factory\Util;
-use App\Factory\Controller;
-use App\Factory\Model;
 use App\Util\View;
 
 Di::getInstance()->get(Autoloader::class)->register();
-Di::getInstance()->get(Util::class)->register();
-Di::getInstance()->get(Model::class)->register();
-Di::getInstance()->get(Controller::class)->register();
 
 /** @var Route $route */
 $route = Di::getInstance()->get(Route::class);
