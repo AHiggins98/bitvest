@@ -19,11 +19,10 @@ class Businesses
         $this->email = $email;
     }
     
-    public function add($email, $password)
+    public function add($foundername, $businessname, $shortname)
     {
 
       // copied from formproc
-
 
 
 $sql = "INSERT INTO 'businesses' ('founder', 'businessname', 'shortname')
@@ -38,26 +37,26 @@ if ($conn->query($sql) === TRUE) {
    // end of copy
 
 
-        $verifyCode = bin2hex(openssl_random_pseudo_bytes(8));
-        $query = 'insert into users(email, password, verify_code, created_ts) '
-                . 'values (?, ?, ?, ?)';
-        
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-        
-        $params = [$email, $hash, $verifyCode, date('c')];
-        
-        $added = $this->mysql->query($query, 'ssss', $params);
-        
-        if ($added != 1) {
-            throw new \Exception('Failed to add user record');
-        }
-        
-        $emailParams = [
-            'email' => $email,
-            'subject' => 'Bitvest - Please verify your email address',
-            'verifyLink' => $this->config->get('baseUrl') . '/user/verify?verifyCode=' . $verifyCode . '&email=' . $email,
-        ];
-        
-        $this->email->send('verify-code', $emailParams);
+       // $verifyCode = bin2hex(openssl_random_pseudo_bytes(8));
+       // $query = 'insert into users(email, password, verify_code, created_ts) '
+       //         . 'values (?, ?, ?, ?)';
+       // 
+       // $hash = password_hash($password, PASSWORD_BCRYPT);
+       // 
+       // $params = [$email, $hash, $verifyCode, date('c')];
+       // 
+       // $added = $this->mysql->query($query, 'ssss', $params);
+       // 
+       // if ($added != 1) {
+       //     throw new \Exception('Failed to add user record');
+       // }
+       // 
+       // $emailParams = [
+       //     'email' => $email,
+       //     'subject' => 'Bitvest - Please verify your email address',
+       //     'verifyLink' => $this->config->get('baseUrl') . '/user/verify?verifyCode=' . $verifyCode . '&email=' . $email,
+       // ];
+       // 
+       // $this->email->send('verify-code', $emailParams);
     }
 }

@@ -83,33 +83,33 @@ class CreateBusiness extends AbstractForm
   // end of copy
 
          
-            $validEmail = $this->validator->isValidEmailString($params['email']);
-            
-            if (!$validEmail) {
-                $this->errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH . 
-                        ' and ' . Validator::MAX_EMAIL_LENGTH . ' characters in' . 
-                        ' with an @ symbol.';
-            }
-            
-            $validPassword = $this->validator->isValidPasswordString($params['password']);
-            
-            if (!$validPassword) {
-                $this->errors['password'] = 'Password must be between ' . Validator::MIN_PASSWORD_LENGTH . 
-                        ' and ' . Validator::MAX_PASSWORD_LENGTH . ' characters.';
-            }
-            
-            $emailExists = $this->users->emailExists($params['email']);
-            
-            if ($emailExists) {
-                $this->errors['email'] = 'An account already exists with that email address.';
-            }
-            
-            $this->hasErrors = $emailExists || !$validEmail || !$validPassword;
-            
-            if (!$this->hasErrors) {
-                $this->values['email'] = $params['email'];
-                $this->values['password'] = $params['password'];
-            }
+//            $validEmail = $this->validator->isValidEmailString($params['email']);
+//            
+//            if (!$validEmail) {
+//                $this->errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH . 
+//                        ' and ' . Validator::MAX_EMAIL_LENGTH . ' characters in' . 
+//                        ' with an @ symbol.';
+//            }
+//            
+//            $validPassword = $this->validator->isValidPasswordString($params['password']);
+//            
+//            if (!$validPassword) {
+//                $this->errors['password'] = 'Password must be between ' . Validator::MIN_PASSWORD_LENGTH . 
+//                        ' and ' . Validator::MAX_PASSWORD_LENGTH . ' characters.';
+//            }
+//            
+//            $emailExists = $this->users->emailExists($params['email']);
+//            
+//            if ($emailExists) {
+//                $this->errors['email'] = 'An account already exists with that email address.';
+//            }
+//            
+//            $this->hasErrors = $emailExists || !$validEmail || !$validPassword;
+//            
+//            if (!$this->hasErrors) {
+//                $this->values['email'] = $params['email'];
+//                $this->values['password'] = $params['password'];
+//            }
             
         } else {
             throw new \Exception('Missing form parameters.');
