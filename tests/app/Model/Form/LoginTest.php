@@ -42,7 +42,7 @@ class LoginTest extends \PHPUnit_Framework_TestCase
 
         $form->validate($params);
         
-        $this->assertFalse($form->hasErrors());        
+        $this->assertFalse($form->hasErrors());
         $this->assertEquals('foo@bar.com', $form->getValue('email'));
         
         // The form does not set the password

@@ -43,6 +43,4 @@ try {
 } catch (\Exception $e) {
     Di::getInstance()->get(View::class)->render('error');
     throw $e;
-    
 }
-

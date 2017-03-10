@@ -5,8 +5,8 @@ namespace App\Util;
 use App\Util\HeaderParams;
 use App\Util\Di;
 
-class Route {
-
+class Route
+{
     private $resources;
     private $headers;
 
@@ -38,7 +38,7 @@ class Route {
             if (isset($routeParts[2])) {
                 $unfilteredRequestParams['version'] = $routeParts[1];
                 $actionName = Route::toControllerActionName($routeParts[2]);
-            } else if (isset($routeParts[1])) {
+            } elseif (isset($routeParts[1])) {
                 $actionName = Route::toControllerActionName($routeParts[1]);
             } else {
                 $actionName = Route::toControllerActionName('index');
@@ -74,5 +74,4 @@ class Route {
         }
         return implode('', $actionWords) . 'Action';
     }
-
 }

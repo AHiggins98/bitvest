@@ -5,7 +5,7 @@ use App\Util\Di;
 use App\Model\Auth;
 
 class AuthTest extends \PHPUnit_Framework_TestCase
-{   
+{
     public function testCheckPassword()
     {
         $mockMysql = $this->getMockBuilder(Mysql::class)
@@ -33,7 +33,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
      * @group db
      */
     public function testCheckPasswordMysql()
-    {   
+    {
         $auth = Di::getInstance()->get(Auth::class);
         $result = $auth->checkPassword('a@b.com', 'pass123');
         $this->assertTrue($result);

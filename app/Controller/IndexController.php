@@ -17,22 +17,22 @@ class IndexController extends ViewController
         $this->session = $session;
     }
     
-  public function indexAction(array $unfilteredRequestParams)
-  {
-    $this->view->addVars($unfilteredRequestParams);
+    public function indexAction(array $unfilteredRequestParams)
+    {
+        $this->view->addVars($unfilteredRequestParams);
     
-    $vars = [
+        $vars = [
         'message' => $this->session->getOnce('message'),
         'mailMessage' => $this->session->getOnce('mailMessage'),
         'loggedIn' => $this->session->get('loggedIn'),
     ];
     
-    $this->view->render('index', $vars);
-  }
+        $this->view->render('index', $vars);
+    }
   
-  public function errorAction($p)
-  {
-      $this->view->addVars($p);
-      $this->view->render('error');
-  }
+    public function errorAction($p)
+    {
+        $this->view->addVars($p);
+        $this->view->render('error');
+    }
 }

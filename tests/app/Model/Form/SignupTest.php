@@ -42,7 +42,7 @@ class SignupTest extends \PHPUnit_Framework_TestCase
 
         $form->validate($params);
         
-        $this->assertFalse($form->hasErrors());        
+        $this->assertFalse($form->hasErrors());
         $this->assertEquals('foo@bar.com', $form->getValue('email'));
         $this->assertEquals('somepass123', $form->getValue('password'));
     }

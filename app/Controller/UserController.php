@@ -21,8 +21,8 @@ class UserController extends ViewController
     private $signupForm;
     private $users;
     
-    public function __construct(Config $config, 
-            View $view, Menu $menu, Session $session, 
+    public function __construct(Config $config,
+            View $view, Menu $menu, Session $session,
             HeaderParams $headers, Auth $auth, Login $loginForm, Signup $signupForm,
             Users $users)
     {
@@ -94,11 +94,11 @@ class UserController extends ViewController
         // Add user and send confirmation email
         
         $this->users->add(
-            $this->signupForm->getValue('email'), 
+            $this->signupForm->getValue('email'),
             $this->signupForm->getValue('password')
         );
         
-        $this->session->set('message', 
+        $this->session->set('message',
                 'Confirmation email has been sent. Please check your email to login.');
         
         $this->headers->redirect('');

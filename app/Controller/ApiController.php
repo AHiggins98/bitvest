@@ -7,7 +7,6 @@ use App\Util\Config;
 
 class ApiController extends BaseController
 {
-
     const CONTENT_TYPE_JSON = 'Content-type: application/json';
 
     private $headers;
@@ -23,5 +22,4 @@ class ApiController extends BaseController
         $this->headers->set(self::CONTENT_TYPE_JSON);
         echo json_encode($unfilteredRequestParams);
     }
-
 }

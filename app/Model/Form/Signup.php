@@ -23,19 +23,18 @@ class Signup extends AbstractForm
     public function validate(array $params)
     {
         if (isset($params['email']) && isset($params['password'])) {
-         
             $validEmail = $this->validator->isValidEmailString($params['email']);
             
             if (!$validEmail) {
-                $this->errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH . 
-                        ' and ' . Validator::MAX_EMAIL_LENGTH . ' characters in' . 
+                $this->errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH .
+                        ' and ' . Validator::MAX_EMAIL_LENGTH . ' characters in' .
                         ' with an @ symbol.';
-            } 
+            }
             
             $validPassword = $this->validator->isValidPasswordString($params['password']);
             
             if (!$validPassword) {
-                $this->errors['password'] = 'Password must be between ' . Validator::MIN_PASSWORD_LENGTH . 
+                $this->errors['password'] = 'Password must be between ' . Validator::MIN_PASSWORD_LENGTH .
                         ' and ' . Validator::MAX_PASSWORD_LENGTH . ' characters.';
             }
             
@@ -57,7 +56,6 @@ class Signup extends AbstractForm
             } else {
                 $this->values['password'] = '';
             }
-            
         } else {
             throw new \Exception('Missing form parameters.');
         }

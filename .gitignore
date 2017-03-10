@@ -6,3 +6,4 @@ public/.htaccess
 coverage
 public/coverage
 clover.xml
+.php_cs.cache

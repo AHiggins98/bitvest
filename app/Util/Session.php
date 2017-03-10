@@ -14,7 +14,7 @@ class Session
     
     public function end()
     {
-        session_destroy();  
+        session_destroy();
     }
     
     public function regenerate()
@@ -31,7 +31,7 @@ class Session
     {
         if (isset($_SESSION[$var])) {
             return $_SESSION[$var];
-        } 
+        }
         return null;
     }
     
@@ -45,7 +45,7 @@ class Session
             }
             unset($_SESSION[$var]);
             return $val;
-        } 
+        }
         return null;
     }
     

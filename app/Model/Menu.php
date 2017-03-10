@@ -6,7 +6,6 @@ use App\Util\Session;
 
 class Menu
 {
-
     private $session;
 
     public function __construct(Session $session)
@@ -16,7 +15,6 @@ class Menu
 
     public function getLinks()
     {
-
         $links = [
             [
                 'route' => '',
@@ -45,8 +43,6 @@ class Menu
         ];
 
         if (!$this->session->get('loggedIn')) {
-            
-            
             $links[] = [
                 'route' => 'user/login',
                 'label' => 'Login',
@@ -56,9 +52,7 @@ class Menu
                 'route' => 'user/signup',
                 'label' => 'Signup',
             ];
-            
         } else {
-           
             $links[] = [
                 'route' => 'user/account',
                 'label' => 'My account',
@@ -77,5 +71,4 @@ class Menu
         
         return $links;
     }
-
 }

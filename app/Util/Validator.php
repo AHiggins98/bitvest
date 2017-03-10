@@ -19,13 +19,13 @@ class Validator
     
     public function isPasswordChars($password)
     {
-        return strlen($password) == strspn($password, 
+        return strlen($password) == strspn($password,
             self::AZ . strtoupper(self::AZ) . self::NUMS . self::SPECIAL);
     }
    
     public function isValidEmailString($email)
     {
-        return strlen($email) >= self::MIN_EMAIL_LENGTH && 
+        return strlen($email) >= self::MIN_EMAIL_LENGTH &&
                strlen($email) <= self::MAX_EMAIL_LENGTH &&
                $this->isEmailChars($email);
     }

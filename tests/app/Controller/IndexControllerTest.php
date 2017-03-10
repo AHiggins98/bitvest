@@ -24,9 +24,9 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
                 ->willReturn([]);
         
         return new IndexController(
-            $this->mocks[Config::class], 
-            $this->mocks[View::class], 
-            $this->mocks[Menu::class], 
+            $this->mocks[Config::class],
+            $this->mocks[View::class],
+            $this->mocks[Menu::class],
             $this->mocks[Session::class]
         );
     }
@@ -40,7 +40,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         
         $this->mocks[View::class]->expects($this->once())
                 ->method('render')
-                ->with('index', ['message' => null, 'mailMessage' => null, 'loggedIn' => null]);              
+                ->with('index', ['message' => null, 'mailMessage' => null, 'loggedIn' => null]);
         
         $indexController->indexAction($params);
     }

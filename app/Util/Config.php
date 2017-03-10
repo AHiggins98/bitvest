@@ -4,11 +4,11 @@ namespace App\Util;
 
 class Config
 {
-    static $config;
+    public static $config;
 
     /**
      * Get configuration array from file.
-     * 
+     *
      * @return array
      */
     public function getConfig()
@@ -21,7 +21,7 @@ class Config
 
     /**
      * Get a specific config value, by name.
-     * 
+     *
      * @param string $var
      * @return mixed
      * @throws \Exception

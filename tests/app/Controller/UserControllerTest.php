@@ -34,17 +34,16 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ->willReturn([]);
         
         return new UserController(
-            $this->mocks[Config::class], 
-            $this->mocks[View::class], 
-            $this->mocks[Menu::class], 
-            $this->mocks[Session::class], 
-            $this->mocks[HeaderParams::class], 
-            $this->mocks[Auth::class], 
-            $this->mocks[Login::class], 
-            $this->mocks[Signup::class], 
+            $this->mocks[Config::class],
+            $this->mocks[View::class],
+            $this->mocks[Menu::class],
+            $this->mocks[Session::class],
+            $this->mocks[HeaderParams::class],
+            $this->mocks[Auth::class],
+            $this->mocks[Login::class],
+            $this->mocks[Signup::class],
             $this->mocks[Users::class]
         );
-        
     }
     
     public function testLoginAction()
@@ -61,7 +60,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         
         $this->mocks[View::class]->expects($this->once())
                 ->method('render')
-                ->with('user/login', []);              
+                ->with('user/login', []);
         
         $userController->loginAction($params);
     }
@@ -77,7 +76,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         
         $this->mocks[HeaderParams::class]->expects($this->once())
                 ->method('redirect')
-                ->with('');              
+                ->with('');
         
         $userController->loginSubmitAction($params);
     }
@@ -96,7 +95,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         
         $this->mocks[View::class]->expects($this->once())
                 ->method('render')
-                ->with('user/signup', []);              
+                ->with('user/signup', []);
         
         $userController->signupAction($params);
     }
@@ -112,7 +111,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         
         $this->mocks[HeaderParams::class]->expects($this->once())
                 ->method('redirect')
-                ->with('');              
+                ->with('');
         
         $userController->signupSubmitAction($params);
     }
