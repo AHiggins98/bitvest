@@ -29,11 +29,11 @@ class Businesses
 $sql = "INSERT INTO 'businesses' ('founder', 'businessname', 'shortname')
 VALUES ('".$foundername."', '".$businessname."', '".$shortname."')";
 
-if ($conn->query($sql) === TRUE) {
-    echo "Your business has been successfully created!";
-} else {
-    echo "Error: " . $sql . $conn->error;
-}
+        if ($conn->query($sql) === true) {
+            echo "Your business has been successfully created!";
+        } else {
+            echo "Error: " . $sql . $conn->error;
+        }
 
    // end of copy
 
