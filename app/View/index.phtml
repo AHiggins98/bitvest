@@ -52,10 +52,11 @@
     </div><!-- left div -->
     
     <div class="span6">
+        <?php if (!$vars['loggedIn']) { ?>
         <div class="muted text-center">Login with an existing account</div>
         <hr>
         <?php include('user/login-form.phtml'); ?>
-        
+        <?php } ?>
     </div><!-- right div -->
 
 </div>
