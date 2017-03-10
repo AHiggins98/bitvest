@@ -9,7 +9,7 @@ use App\Util\Config;
  */
 class Mysql
 {
-    static $mysqli;
+    private static $mysqli;
     private $host;
     private $user;
     private $pass;
@@ -51,7 +51,7 @@ class Mysql
             }
             
             $bind = array_merge([$types], $refs);
-            call_user_func_array([$stmt, 'bind_param'], $bind);            
+            call_user_func_array([$stmt, 'bind_param'], $bind);
         }
        
         $stmt->execute();

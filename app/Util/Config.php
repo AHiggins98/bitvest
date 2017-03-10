@@ -4,9 +4,13 @@ namespace App\Util;
 
 class Config
 {
+    public static $config;
 
-    static $config;
-
+    /**
+     * Get configuration array from file.
+     *
+     * @return array
+     */
     public function getConfig()
     {
         if (!isset(self::$config)) {
@@ -15,6 +19,13 @@ class Config
         return self::$config;
     }
 
+    /**
+     * Get a specific config value, by name.
+     *
+     * @param string $var
+     * @return mixed
+     * @throws \Exception
+     */
     public function get($var)
     {
         if (!isset($this->getConfig()[$var])) {

@@ -1,8 +1,5 @@
-<?php include(__DIR__ . '/../header.phtml'); ?>
 
-<h3 class="muted">User &raquo; Signup</h3>
-
-<form class="form-horizontal" method="post" action="<?=$vars['baseUrl']?>/user/signup-submit">
+<form class="form-horizontal" method="post" action="<?=$vars['baseUrl']?>/user/login-submit">
   <div class="control-group">
     <label class="control-label" for="inputEmail">Email</label>
     <div class="controls">
@@ -13,15 +10,15 @@
   <div class="control-group">
     <label class="control-label" for="inputPassword">Password</label>
     <div class="controls">
-        <input type="password" id="inputPassword" name="password" placeholder="New password"> <span class='muted'>(minimum 5 characters)</span>
-      <div style='color:red'><?=$vars['formErrors']['password']?></div>
+      <input type="password" id="inputPassword" name="password" placeholder="Password" value="">
     </div>
   </div>
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn btn-primary">Create account</button>
+      <label class="checkbox">
+        <input type="checkbox"> Remember me
+      </label>
+      <button type="submit" class="btn btn-primary">Login</button> or <a href="">Signup for a new account</a>
     </div>
   </div>
 </form>
-
-<?php include(__DIR__ . '/../footer.phtml'); ?>
