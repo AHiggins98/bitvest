@@ -30,7 +30,7 @@ class Signup extends AbstractForm
                 $this->errors['email'] = 'Email must be between ' . Validator::MIN_EMAIL_LENGTH . 
                         ' and ' . Validator::MAX_EMAIL_LENGTH . ' characters in' . 
                         ' with an @ symbol.';
-            }
+            } 
             
             $validPassword = $this->validator->isValidPasswordString($params['password']);
             
@@ -47,9 +47,15 @@ class Signup extends AbstractForm
             
             $this->hasErrors = $emailExists || !$validEmail || !$validPassword;
             
-            if (!$this->hasErrors) {
+            if (!$emailExists && $validEmail) {
+                // They may have to re-type their password, but we'll redisplay the email.
                 $this->values['email'] = $params['email'];
+            }
+            
+            if (!$this->hasErrors) {
                 $this->values['password'] = $params['password'];
+            } else {
+                $this->values['password'] = '';
             }
             
         } else {

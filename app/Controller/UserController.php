@@ -39,7 +39,7 @@ class UserController extends ViewController
     {
         $this->view->addVars($unfilteredRequestParams);
         
-        $loginFormState = $this->session->get('loginFormState');
+        $loginFormState = $this->session->getOnce('loginFormState');
         
         if (isset($loginFormState)) {
             $this->view->addVars($loginFormState);
@@ -70,7 +70,7 @@ class UserController extends ViewController
     {
         $this->view->addVars($unfilteredRequestParams);
         
-        $signupFormState = $this->session->get('signupFormState');
+        $signupFormState = $this->session->getOnce('signupFormState');
         
         if (isset($signupFormState)) {
             $this->view->addVars($signupFormState);

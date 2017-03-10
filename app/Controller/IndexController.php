@@ -21,15 +21,12 @@ class IndexController extends ViewController
   {
     $this->view->addVars($unfilteredRequestParams);
     
-    $message = $this->session->get('message');
-    $mailMessage = $this->session->get('mailMessage');
-    $this->session->set('message', null);
-    $this->session->set('mailMessage', null);
     $vars = [
-        'message' => $message,
-        'mailMessage' => $mailMessage,
-        'loggedIn' => $this->session->get('loggedIn'),
+        'message' => $this->session->getOnce('message'),
+        'mailMessage' => $this->session->getOnce('mailMessage'),
+        'loggedIn' => $this->session->getOnce('loggedIn'),
     ];
+    
     $this->view->render('index', $vars);
   }
   
