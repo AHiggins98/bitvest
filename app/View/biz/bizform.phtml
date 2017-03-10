@@ -1,0 +1,41 @@
+<form class="form-horizontal" method='post' action="formproc.phtml">
+<style>
+input, p {
+  margin-top:0.5%;
+}
+</style>
+
+  <div class="control-group">
+    <label class="control-label" for="inputName">Founder Name:</label>
+    <div class="controls">
+      <input type="text" id="inputName" placeholder="Name">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputBizName">Business Name:</label>
+    <div class="controls">
+      <input type="text" id="inputBizName" placeholder="Business Name">
+    </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputShortName">Short Name:</label>
+      <div class="controls">
+      <input type="text" id="inputShortName" placeholder="URL Extension" ng-model="shortname">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="urlpre">URL Preview:</label>
+    <div class="controls">
+      <p style="opacity:0.6;" name="urlpre">www.bitvest/biz/list/{{shortname}}</p>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Add Business</button>
+    </div>
+  </div>
+</form>

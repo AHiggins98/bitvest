@@ -1,0 +1,83 @@
+<?php if(isset($_POST['submit'])) {
+ 
+  $dbUser = 'bitvest';
+  $dbPass = 'bitvest';
+  $dbName = 'bitvest';
+  $dbHost = '127.0.0.1';
+
+$conn = new mysqli($dbHost, $dbUser, $dbPass, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+ 
+    if(!isset($_POST['foundername']) ||
+ 
+        !isset($_POST['businessname']) ||
+
+        !isset($_POST['shortname']) {
+ 
+        died('Fields marked "*" are required!');       
+ 
+    }
+
+ 
+    $foundername = $_POST['foundername']; 
+ 
+    $businessname = $_POST['businessname']; 
+ 
+    $shortname = $_POST['shortname']; 
+ 
+    $error_message = "";
+ 
+    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
+ 
+  if(!preg_match($email_exp,$email)) {
+ 
+    $error_message .= 'The Email Address you entered does not appear to be valid.<br />';
+ 
+  }
+ 
+    $string_exp = "/^[A-Za-z .'-]+$/";
+ 
+  if(!preg_match($string_exp,$foundername)) {
+ 
+    $error_message .= 'The founder name you entered does not appear to be valid.<br />';
+ 
+  }
+
+  if(!preg_match($string_exp,$businessname)) {
+ 
+    $error_message .= 'The business you entered does not appear to be valid.<br />';
+ 
+  }
+
+   if(!preg_match($string_exp,$shortname)) {
+ 
+    $error_message .= 'The business you entered does not appear to be valid.<br />';
+ 
+  }
+ 
+ 
+  if(strlen($error_message) > 0) {
+ 
+    died($error_message);
+ 
+  }
+
+
+$sql = "INSERT INTO 'businesses' ('founder', 'businessname', 'shortname')
+VALUES ('".$foundername."', '".$businessname."', '".$shortname."')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Your business has been successfully created!";
+} else {
+    echo "Error: " . $sql . $conn->error;
+}
+
+ 
+}
+     
+ 
+    
