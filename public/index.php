@@ -29,6 +29,7 @@ $route->addResources([
     'user/account',
     'biz/start',
     'biz/list',
+    'jobs/list',
     'api/v1/users',
     'api/v1/jobs',
     'api/v1/job_ratings',

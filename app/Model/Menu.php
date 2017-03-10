@@ -30,13 +30,13 @@ class Menu
         ];
 
         $links[] = [
-            'route' => 'jobs/list',
-            'label' => 'Jobs',
+            'route' => 'biz/list',
+            'label' => 'Businesses',
         ];
 
         $links[] = [
-            'route' => 'biz/list',
-            'label' => 'Businesses',
+            'route' => 'jobs/list',
+            'label' => 'Jobs',
         ];
         
         $links[] = [
