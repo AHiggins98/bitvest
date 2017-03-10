@@ -24,7 +24,7 @@ class IndexController extends ViewController
     $vars = [
         'message' => $this->session->getOnce('message'),
         'mailMessage' => $this->session->getOnce('mailMessage'),
-        'loggedIn' => $this->session->getOnce('loggedIn'),
+        'loggedIn' => $this->session->get('loggedIn'),
     ];
     
     $this->view->render('index', $vars);
