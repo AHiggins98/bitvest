@@ -21,6 +21,17 @@ class Autoloader
     
     public function registerTests()
     {
-        // TODO
+        spl_autoload_register(function ($className) {
+            $file = dirname(__FILE__) . 
+                    '/../../tests/' . 
+                    str_replace(['Tests', '\\'], ['', '/'], $className) 
+                    . '.php';
+            
+            if (!is_readable($file)) {
+                return;
+            }
+            
+            include $file;
+        });
     }
 }
