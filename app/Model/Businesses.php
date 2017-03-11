@@ -40,7 +40,7 @@ class Businesses
     public function businessnameExists($businessname)
     {
         $result = "SELECT * FROM businesses WHERE businessname = ('".$businessname."')";
-        if (strlen($result) > 0) {
+        if ($this->mysql->query($result) > 0) {
             return true;
         }
     }
