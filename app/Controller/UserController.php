@@ -21,8 +21,8 @@ class UserController extends ViewController
     private $signupForm;
     private $users;
     
-    public function __construct(Config $config, 
-            View $view, Menu $menu, Session $session, 
+    public function __construct(Config $config,
+            View $view, Menu $menu, Session $session,
             HeaderParams $headers, Auth $auth, Login $loginForm, Signup $signupForm,
             Users $users)
     {
@@ -39,7 +39,7 @@ class UserController extends ViewController
     {
         $this->view->addVars($unfilteredRequestParams);
         
-        $loginFormState = $this->session->get('loginFormState');
+        $loginFormState = $this->session->getOnce('loginFormState');
         
         if (isset($loginFormState)) {
             $this->view->addVars($loginFormState);
@@ -63,17 +63,14 @@ class UserController extends ViewController
             return;
         }
         
-        $user = new User();
-        $this->users->loadByEmail($user, $email);
-        
-        $this->successfulLogin($user);
+        $this->successfulLogin($this->loginForm->getValue('email'));
     }
     
     public function signupAction(array $unfilteredRequestParams)
     {
         $this->view->addVars($unfilteredRequestParams);
         
-        $signupFormState = $this->session->get('signupFormState');
+        $signupFormState = $this->session->getOnce('signupFormState');
         
         if (isset($signupFormState)) {
             $this->view->addVars($signupFormState);
@@ -97,11 +94,11 @@ class UserController extends ViewController
         // Add user and send confirmation email
         
         $this->users->add(
-            $this->signupForm->getValue('email'), 
+            $this->signupForm->getValue('email'),
             $this->signupForm->getValue('password')
         );
         
-        $this->session->set('message', 
+        $this->session->set('message',
                 'Confirmation email has been sent. Please check your email to login.');
         
         $this->headers->redirect('');
@@ -109,8 +106,14 @@ class UserController extends ViewController
     
     public function accountAction(array $params)
     {
-        $this->view->addVars($params);
-        $this->view->render('account');
+        $vars = [
+            'message' => $this->session->getOnce('message'),
+        ];
+        
+        $vars += $params;
+        
+        $this->view->addVars($vars);
+        $this->view->render('user/account');
     }
     
     public function logoutAction()
@@ -130,6 +133,6 @@ class UserController extends ViewController
         $this->session->set('message', 'Successfully logged in as ' . $email);
         $this->session->set('loggedIn', true);
         $this->session->set('email', $email);
-        $this->headers->redirect('');
+        $this->headers->redirect('user/account');
     }
 }
