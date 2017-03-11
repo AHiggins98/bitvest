@@ -62,7 +62,17 @@ class CreateBusiness extends AbstractForm
                 $this->errors['foundername'] = 'The founder name you used already exists. Please choose another one.';
             }
             
-            // todo: check short name, business name
+            $businessnameExists = $this->businesses->businessnameExists($params['businessname']);
+            
+            if ($businessnameExists) {
+                $this->errors['businessname'] = 'The business name you used already exists. Please choose another one.';
+            }
+            
+            $shortnameExists = $this->businesses->shortnameExists($params['shortname']);
+            
+            if ($shortnameExists) {
+                $this->errors['shortname'] = 'The short name you used already exists. Please choose another one.';
+            }
             
             $this->hasErrors = $validBusinessname && $validFoundername && $validShortname;
             

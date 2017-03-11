@@ -16,14 +16,16 @@ input, p {
   <div class="control-group">
     <label class="control-label" for="inputBizName">Business Name:</label>
     <div class="controls">
-      <input type="text" id="inputBizName" placeholder="Business Name">
+      <input type="text" id="inputBizName" placeholder="Business Name" name="businessname" value='<?=$vars['formValues']['businessname']?>'>
+      <span class="error"><?=$vars['formErrors']['businessname']?></span>
     </div>
     </div>
 
     <div class="control-group">
       <label class="control-label" for="inputShortName">Short Name:</label>
       <div class="controls">
-      <input type="text" id="inputShortName" placeholder="URL Extension" ng-model="shortname">
+      <input type="text" id="inputShortName" placeholder="URL Extension" ng-model="shortname" name="shortname" value='<?=$vars['formValues']['shortname']?>'>
+      <span class="error"><?=$vars['formErrors']['shortname']?></span>
     </div>
   </div>
 

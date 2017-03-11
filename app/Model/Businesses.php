@@ -31,8 +31,26 @@ class Businesses
     
     public function foundernameExists($foundername)
     {
-        // todo: query the DB, return true if it exists
+        $result = "SELECT * FROM businesses WHERE founder = ('".$foundername."')";
+        if (strlen($result) > 0) {
+            return true;
+        }
+    }
+
+    public function businessnameExists($businessname)
+    {
+        $result = "SELECT * FROM businesses WHERE businessname = ('".$businessname."')";
+        if (strlen($result) > 0) {
+            return true;
+        }
+    }
+
+    public function shortnameExists($shortname)
+    {
+        $result = "SELECT * FROM businesses WHERE shortname = ('".$shortname."')";
+        if (strlen($result) > 0) {
+            return true;
+        }
     }
     
-    // todo: same for business, shortname
 }
