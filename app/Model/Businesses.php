@@ -6,7 +6,6 @@ use App\Util\Mysql;
 use App\Util\Email;
 use App\Util\Config;
 
-
 class Businesses
 {
     private $mysql;
@@ -53,5 +52,4 @@ class Businesses
             return true;
         }
     }
-    
 }

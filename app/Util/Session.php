@@ -14,7 +14,7 @@ class Session
     
     public function end()
     {
-        session_destroy();  
+        session_destroy();
     }
     
     public function regenerate()
@@ -31,7 +31,21 @@ class Session
     {
         if (isset($_SESSION[$var])) {
             return $_SESSION[$var];
-        } 
+        }
+        return null;
+    }
+    
+    public function getOnce($var)
+    {
+        if (isset($_SESSION[$var])) {
+            if (is_object($_SESSION[$var])) {
+                $val = clone $_SESSION[$var];
+            } else {
+                $val = $_SESSION[$var];
+            }
+            unset($_SESSION[$var]);
+            return $val;
+        }
         return null;
     }
     

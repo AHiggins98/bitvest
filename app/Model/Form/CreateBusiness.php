@@ -9,7 +9,6 @@ use App\Model\Businesses;
 
 class CreateBusiness extends AbstractForm
 {
-
     private $validator;
     private $users;
     private $session;
@@ -81,10 +80,8 @@ class CreateBusiness extends AbstractForm
                 $this->values['shortname'] = $params['shortname'];
                 $this->values['businessname'] = $params['businessname'];
             }
-            
         } else {
             throw new \Exception('Missing form parameters.');
         }
     }
-
 }
