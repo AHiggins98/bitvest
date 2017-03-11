@@ -7,17 +7,20 @@ use App\Util\Config;
 use App\Model\Menu;
 use App\Model\Form\CreateBusiness;
 use App\Model\Businesses;
+use App\Util\Session;
 
 class BizController extends ViewController
 {
     private $createBusinessForm;
     private $businesses;
+    private $session;
 
-    public function __construct(Config $config, View $view, Menu $menu, CreateBusiness $createBusinessForm, Businesses $businesses)
+    public function __construct(Config $config, View $view, Menu $menu, CreateBusiness $createBusinessForm, Businesses $businesses, Session $session)
     {
         parent::__construct($config, $view, $menu);
         $this->createBusinessForm = $createBusinessForm;
         $this->businesses = $businesses;
+        $this->session = $session;
     }
     
     public function startAction(array $p)
