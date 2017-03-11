@@ -8,19 +8,24 @@ use App\Model\Menu;
 use App\Model\Form\CreateBusiness;
 use App\Model\Businesses;
 use App\Util\Session;
+use App\Util\HeaderParams;
+
 
 class BizController extends ViewController
 {
     private $createBusinessForm;
     private $businesses;
     private $session;
+    private $headers;
 
-    public function __construct(Config $config, View $view, Menu $menu, CreateBusiness $createBusinessForm, Businesses $businesses, Session $session)
+    public function __construct(Config $config, View $view, Menu $menu, CreateBusiness $createBusinessForm, Businesses $businesses, Session $session, HeaderParams $headers)
     {
         parent::__construct($config, $view, $menu);
         $this->createBusinessForm = $createBusinessForm;
         $this->businesses = $businesses;
         $this->session = $session;
+        $this->headers = $headers;
+
     }
     
     public function startAction(array $p)

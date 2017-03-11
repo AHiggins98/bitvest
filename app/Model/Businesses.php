@@ -6,6 +6,7 @@ use App\Util\Mysql;
 use App\Util\Email;
 use App\Util\Config;
 
+
 class Businesses
 {
     private $mysql;
@@ -21,7 +22,7 @@ class Businesses
     
     public function add($foundername, $businessname, $shortname)
     {
-        $sql = "INSERT INTO 'businesses' ('founder', 'businessname', 'shortname')
+        $sql = "INSERT INTO businesses (founder, businessname, shortname)
         VALUES ('".$foundername."', '".$businessname."', '".$shortname."')";
 
         if ($this->mysql->query($sql) != 1) {
