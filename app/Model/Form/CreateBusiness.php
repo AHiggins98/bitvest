@@ -17,7 +17,7 @@ class CreateBusiness extends AbstractForm
 
     public function __construct(Validator $validator, Users $users, Session $session, Businesses $businesses)
     {
-        parent::__construct(['email', 'password']);
+        parent::__construct(['foundername', 'businessname', 'shortname']);
         $this->validator = $validator;
         $this->users = $users;
         $this->session = $session;
