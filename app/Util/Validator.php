@@ -36,4 +36,25 @@ class Validator
                strlen($password) <= self::MAX_PASSWORD_LENGTH &&
                $this->isPasswordChars($password);
     }
+    
+    public function isValidFounderName($foundername)
+    {
+        $string_exp = "/^[A-Za-z .'-]+$/";
+
+        if (!preg_match($string_exp, $foundername)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public function isValidShortName($shortname)
+    {
+        
+    }
+    
+    public function isValidBusinessName($businessname)
+    {
+        
+    }
 }
