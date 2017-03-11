@@ -2,6 +2,9 @@
 
 <h3 class="muted">Businesses</h3>
 
+<?php if (isset($vars['message'])) { ?>
+<div class="alert alert-success"><?=$vars['message']?></div>
+<?php } ?>
 <p>
 <a href='<?=$vars['baseUrl']?>/biz/start'><button class='btn'>Create New Business</button></a>
 </p>

@@ -44,6 +44,11 @@ class BizController extends ViewController
     public function listAction(array $p)
     {
         $this->view->addVars($p);
+        $vars = [
+            'message' => $this->session->getOnce('message'),
+            'loggedIn' => $this->session->get('loggedIn'),
+        ];
+        $this->view->addVars($vars);
         $this->view->render('biz/list');
     }
 
