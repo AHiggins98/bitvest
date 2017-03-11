@@ -32,7 +32,7 @@ class Businesses
     public function foundernameExists($foundername)
     {
         $result = "SELECT * FROM businesses WHERE founder = ('".$foundername."')";
-        if (strlen($result) > 0) {
+        if ($this->mysql->query($result) > 0) {
             return true;
         }
     }
@@ -48,7 +48,7 @@ class Businesses
     public function shortnameExists($shortname)
     {
         $result = "SELECT * FROM businesses WHERE shortname = ('".$shortname."')";
-        if (strlen($result) > 0) {
+        if ($this->mysql->query($result) > 0) {
             return true;
         }
     }
