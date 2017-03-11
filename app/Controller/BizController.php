@@ -39,6 +39,7 @@ class BizController extends ViewController
         }
         
         $this->view->render('biz/start');
+        
     }
     
     public function listAction(array $p)
@@ -60,16 +61,18 @@ class BizController extends ViewController
          // Add business and redirect to business list
         
         $this->businesses->add(
-            $this->createBusinessForm->getValue('foundername'),
+            $this->createBusinessForm->getValue('foundername'), 
             $this->createBusinessForm->getValue('businessname'),
             $this->createBusinessForm->getValue('shortname')
         );
         
         $businessname = $this->createBusinessForm->getValue('businessname');
         
-        $this->session->set('message',
+        $this->session->set('message', 
                 "Business <b>$businessname</b> added successfully.");
         
-        $this->headers->redirect('');
+        $this->headers->redirect('biz/list');
     }
+    
+    
 }

@@ -1,15 +1,9 @@
-<form class="form-horizontal" method='post' action="<?=$vars['baseUrl']?>/biz/add-business-submit">
-<style>
-input, p {
-  margin-top:0.5%;
-}
-</style>
-
+<form ng-app="bizform" class="form-horizontal" method='post' action="<?=$vars['baseUrl']?>/biz/add-business-submit">
   <div class="control-group">
     <label class="control-label" for="inputName">Founder Name:</label>
     <div class="controls">
       <input type="text" id="inputName" placeholder="Name" name="foundername" value='<?=$vars['formValues']['foundername']?>'>
-      <span style='color:red;'><?=$vars['formErrors']['foundername']?></span>
+      <span class="error"><?=$vars['formErrors']['foundername']?></span>
     </div>
   </div>
 
@@ -32,13 +26,13 @@ input, p {
   <div class="control-group">
     <label class="control-label" for="urlpre">URL Preview:</label>
     <div class="controls">
-      <p style="opacity:0.6;" name="urlpre">www.bitvest/biz/list/{{shortname}}</p>
+      <span class="input-xxlarge uneditable-input" name="urlpre"><?=$vars['baseUrl']?>/biz/list/{{shortname}}</span>
     </div>
   </div>
 
   <div class="control-group">
     <div class="controls">
-      <button type="submit" class="btn">Add Business</button>
+      <button type="submit" class="btn btn-primary">Add Business</button>
     </div>
   </div>
 </form>
