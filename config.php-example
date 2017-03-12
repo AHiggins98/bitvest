@@ -2,9 +2,9 @@
 
 return [
   'baseUrl' => '/bitvest',
-  'dbUser' => 'coinshare',
-  'dbPass' => 'coinshare',
-  'dbName' => 'coinshare',
+  'dbUser' => 'bitvest',
+  'dbPass' => 'bitvest',
+  'dbName' => 'bitvest',
   'dbHost' => '127.0.0.1',
   'emailEnabled' => false,
 ];
