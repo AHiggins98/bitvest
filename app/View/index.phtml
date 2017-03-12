@@ -14,40 +14,42 @@
         <p><i><span style='color:orangered'><?=$vars['mailMessage']?></span></i></p>
         <?php } ?>
 
-<p class="lead">
-    Bitcoin-powered freelancing. Earn Bitcoin and Bitcoin dividends. Be a 
-    shareholder in a digital, autonomous corporation. Your privacy, protected.
-</p>
+        <p class="lead">
+            Bitcoin-powered freelancing. Earn Bitcoin and Bitcoin dividends. Be a 
+            shareholder in a digital, autonomous corporation. Your privacy, protected.
+        </p>
 
-<h4>Learn More</h4>
+        <h4>Learn More</h4>
 
-<ul>
-    <li><a href="">What is Bitcoin?</a></li>
-    <li><a href="">What makes Bitvest different from other freelancing sites?</a></li>
-</ul>
+        <ul>
+            <li><a href="">What is Bitcoin?</a></li>
+            <li><a href="">What makes Bitvest different from other freelancing sites?</a></li>
+        </ul>
 
-<!--
-<p>
-    Traditional businesses operate with the notion of "owners" and "employees".
-    The lion's share of the profits typically go to the owners, while the 
-    compensation of hard-working employees is often a small penance in comparison.
-    Starting a business can also be a mountain of paperwork and fees that means
-    only a privileged few can afford to do. Bitvest throws all of this out
-    the window.
-</p>
-    With Bitvest, anyone can start a business and anyone can contribute to a 
-    business. Contributors become shareholders/owners (if they choose to earn
-    shares rather than direct Bitcoin). Over time, these shares can become 
-    valuable in themselves earning Bitcoin dividends, or sold on a digital
-    stock exchange.
-</p>
--->
+        <!--
+        <p>
+            Traditional businesses operate with the notion of "owners" and "employees".
+            The lion's share of the profits typically go to the owners, while the 
+            compensation of hard-working employees is often a small penance in comparison.
+            Starting a business can also be a mountain of paperwork and fees that means
+            only a privileged few can afford to do. Bitvest throws all of this out
+            the window.
+        </p>
+            With Bitvest, anyone can start a business and anyone can contribute to a 
+            business. Contributors become shareholders/owners (if they choose to earn
+            shares rather than direct Bitcoin). Over time, these shares can become 
+            valuable in themselves earning Bitcoin dividends, or sold on a digital
+            stock exchange.
+        </p>
+        -->
 
-<div class="text-center">
-    <hr>
-    <b>Ready to get started?</b><br>
-<a href='<?=$vars['baseUrl']?>/user/signup'><button class='btn btn-success btn-large'>Signup Now</button></a>
-</div>
+        <?php if (!$vars['loggedIn']) { ?>
+        <div class="text-center">
+            <hr>
+            <b>Ready to get started?</b><br>
+        <a href='<?=$vars['baseUrl']?>/user/signup'><button class='btn btn-success btn-large'>Signup Now</button></a>
+        </div>
+        <?php } ?>
 
     </div><!-- left div -->
     

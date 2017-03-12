@@ -11,6 +11,7 @@ use App\Model\Form\Login;
 use App\Model\Menu;
 use App\Model\Form\Signup;
 use App\Model\Users;
+use App\Model\User;
 
 class UserController extends ViewController
 {
@@ -92,11 +93,11 @@ class UserController extends ViewController
         }
         
         // Add user and send confirmation email
+        $user = new User();
+        $user->email = $this->signupForm->getValue('email');
+        $user->password = $this->signupForm->getValue('password');
         
-        $this->users->add(
-            $this->signupForm->getValue('email'),
-            $this->signupForm->getValue('password')
-        );
+        $this->users->add($user);
         
         $this->session->set('message',
                 'Confirmation email has been sent. Please check your email to login.');
@@ -111,6 +112,10 @@ class UserController extends ViewController
         ];
         
         $vars += $params;
+        
+        $user = new User();
+        $user->id = $this->session->get('userId');
+        $this->users->loadUser($user);
         
         $this->view->addVars($vars);
         $this->view->render('user/account');
@@ -130,9 +135,12 @@ class UserController extends ViewController
     
     private function successfulLogin($email)
     {
+        $user = new User();
+        $user->email = $email;
+        $this->users->loadUser($user);
         $this->session->set('message', 'Successfully logged in as ' . $email);
         $this->session->set('loggedIn', true);
-        $this->session->set('email', $email);
+        $this->session->set('userId', $user->id);
         $this->headers->redirect('user/account');
     }
 }

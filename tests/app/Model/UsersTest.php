@@ -5,6 +5,7 @@ use PHPUnit_Framework_TestCase;
 use App\Util\Di;
 use App\Model\Users;
 use App\Util\Mysql;
+use App\Model\User;
 
 class UsersTest extends PHPUnit_Framework_TestCase
 {
@@ -33,8 +34,12 @@ class UsersTest extends PHPUnit_Framework_TestCase
         $this->mocks[Mysql::class]->expects($this->once())
                 ->method('query')
                 ->willReturn(1);
+
+        $user = new User();
+        $user->email = 'foo@bar.com';
+        $user->password = 'pass1234';
         
-        $users->add('foo@bar.com', 'pass1234');
+        $users->add($user);
     }
     
     /**
@@ -51,7 +56,11 @@ class UsersTest extends PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
         }
         
-        $users->add('support@whebsite.com', 'pass123');
+        $user = new User();
+        $user->email = 'support@whebsite.com';
+        $user->password = 'pass123';
+        
+        $users->add($user);
         
         // Verify
         $this->assertTrue($users->emailExists('support@whebsite.com'));

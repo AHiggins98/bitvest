@@ -27,15 +27,15 @@ class Users
         return $results[0]['cnt'] ? true : false;
     }
     
-    public function add($email, $password)
+    public function add(User $user)
     {
         $verifyCode = bin2hex(openssl_random_pseudo_bytes(8));
         $query = 'insert into users(email, password, verify_code, created_ts) '
                 . 'values (?, ?, ?, ?)';
         
-        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $hash = password_hash($user->password, PASSWORD_BCRYPT);
         
-        $params = [$email, $hash, $verifyCode, date('c')];
+        $params = [$user->email, $hash, $verifyCode, date('c')];
         
         $added = $this->mysql->query($query, 'ssss', $params);
         
@@ -43,10 +43,13 @@ class Users
             throw new \Exception('Failed to add user record');
         }
         
+        $verifyLink = $this->config->get('baseUrl')
+                . '/user/verify?verifyCode=' . $verifyCode . '&email=' . $user->email;
+        
         $emailParams = [
-            'email' => $email,
+            'email' => $user->email,
             'subject' => 'Bitvest - Please verify your email address',
-            'verifyLink' => $this->config->get('baseUrl') . '/user/verify?verifyCode=' . $verifyCode . '&email=' . $email,
+            'verifyLink' => $verifyLink,
         ];
         
         $this->email->send('verify-code', $emailParams);
@@ -54,11 +57,38 @@ class Users
     
     public function delete($email)
     {
-        $query = 'delete from users where email = ?';
+        $query = 'delete from users where email = ? limit 1';
         $removed = $this->mysql->query($query, 's', [$email]);
         
         if ($removed != 1) {
             throw new \Exception('Failed to delete user record');
         }
+    }
+    
+    public function loadUser(User $user)
+    {
+        if (!isset($user->email) && !isset($user->id)) {
+            throw new \Exception('Can only load user by email or id, none specified.');
+        }
+        
+        if (isset($user->email)) {
+            $where = 'email = ?';
+            $types = 's';
+            $params = [$user->email];
+        } else {
+            $where = 'id = ?';
+            $types = 'i';
+            $params = [$user->id];
+        }
+        
+        $query = "select id, email from users where $where limit 1";
+        
+        $rows = $this->mysql->query($query, $types, $params);
+        
+        if (empty($rows) || !isset($rows[0])) {
+            throw new \Exception('Unable to find user.');
+        }
+        
+        $user->id = $rows[0]['id'];
     }
 }

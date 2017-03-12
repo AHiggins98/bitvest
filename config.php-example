@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'baseUrl' => '/bitvest',
+  'baseUrl' => 'http://localhost/bitvest',
   'dbUser' => 'bitvest',
   'dbPass' => 'bitvest',
   'dbName' => 'bitvest',
