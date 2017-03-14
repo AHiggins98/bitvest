@@ -35,11 +35,14 @@ class UsersTest extends PHPUnit_Framework_TestCase
                 ->method('query')
                 ->willReturn(1);
 
-        $user = new User();
-        $user->email = 'foo@bar.com';
-        $user->password = 'pass1234';
+        $mockUser = $this->getMockBuilder(User::class)
+                ->disableOriginalConstructor()
+                ->getMock();
         
-        $users->add($user);
+        $mockUser->email = 'foo@bar.com';
+        $mockUser->password = 'pass1234';
+        
+        $users->add($mockUser);
     }
     
     /**
@@ -56,7 +59,7 @@ class UsersTest extends PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
         }
         
-        $user = new User();
+        $user = Di::getInstance()->create(User::class);
         $user->email = 'support@whebsite.com';
         $user->password = 'pass123';
         

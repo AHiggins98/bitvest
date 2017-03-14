@@ -12,6 +12,8 @@ use App\Model\Menu;
 use App\Model\Form\Signup;
 use App\Model\Users;
 use App\Model\User;
+use App\Util\Di;
+use App\Util\Validator;
 
 class UserController extends ViewController
 {
@@ -20,12 +22,14 @@ class UserController extends ViewController
     private $auth;
     private $loginForm;
     private $signupForm;
+    private $validator;
     private $users;
+    private $di;
     
     public function __construct(Config $config,
             View $view, Menu $menu, Session $session,
             HeaderParams $headers, Auth $auth, Login $loginForm, Signup $signupForm,
-            Users $users)
+            Users $users, Validator $validator, Di $di)
     {
         parent::__construct($config, $view, $menu);
         $this->session = $session;
@@ -34,6 +38,7 @@ class UserController extends ViewController
         $this->loginForm = $loginForm;
         $this->signupForm = $signupForm;
         $this->users = $users;
+        $this->di = $di;
     }
 
     public function loginAction(array $unfilteredRequestParams)
@@ -63,7 +68,7 @@ class UserController extends ViewController
             $this->headers->redirect('user/login');
             return;
         }
-        
+       
         $this->successfulLogin($this->loginForm->getValue('email'));
     }
     
@@ -92,12 +97,15 @@ class UserController extends ViewController
             return;
         }
         
-        // Add user and send confirmation email
-        $user = new User();
+        $user = $this->createUserObject();
         $user->email = $this->signupForm->getValue('email');
         $user->password = $this->signupForm->getValue('password');
         
+        // Add user to database
         $this->users->add($user);
+        
+        // Send confirmation email
+        $user->sendConfirmationEmail();
         
         $this->session->set('message',
                 'Confirmation email has been sent. Please check your email to login.');
@@ -113,7 +121,7 @@ class UserController extends ViewController
         
         $vars += $params;
         
-        $user = new User();
+        $user = $this->createUserObject();
         $user->id = $this->session->get('userId');
         $this->users->loadUser($user);
         
@@ -124,23 +132,83 @@ class UserController extends ViewController
     public function logoutAction()
     {
         $this->session->end();
+        $this->session->set('message', 'Logout successful');
         $this->headers->redirect('');
     }
     
     public function verifyAction(array $p)
     {
-        // TODO: Verify
+        if (!$this->validator->isValidEmailString($p['email']) ||
+            !$this->validator->isValidVerifyCodeString($p['verifyCode'])) {
+            throw new \Exception('Invalid input');
+        }
+        
+        if (!$this->users->emailExists($p['email'])) {
+            throw new \Exception('Invalid email specified');
+        }
+        
+        $user = $this->createUserObject();
+        $user->email = $p['email'];
+        $this->users->loadUser($user);
+        
+        if ($user->verifyCode == $p['verifyCode']) {
+            // Clear the verifyCode for the user and save it
+            $user->verifyCode = null;
+            $this->users->saveUser($user);
+        } else {
+            throw new \Exception('Invalid verifyCode specified');
+        }
+        
         $this->successfulLogin($p['email']);
     }
     
     private function successfulLogin($email)
     {
-        $user = new User();
+        $user = $this->createUserObject();
         $user->email = $email;
         $this->users->loadUser($user);
+        
+        if (isset($user->verifyCode)) {
+            $this->headers->redirect('user/needs-verification');
+            $this->session->set('userId', $user->id);
+            return;
+        }
+        
         $this->session->set('message', 'Successfully logged in as ' . $email);
         $this->session->set('loggedIn', true);
         $this->session->set('userId', $user->id);
         $this->headers->redirect('user/account');
+    }
+    
+    public function needsVerificationAction(array $p)
+    {
+        $this->view->addVars($p);
+        $this->view->render('user/needs-verification');
+    }
+    
+    public function resendVerificationAction(array $p)
+    {
+        $user = $this->createUserObject();
+        $user->id = $this->session->get('userId');
+        
+        $this->users->loadUser($user);
+        
+        // Send confirmation email
+        $user->sendConfirmationEmail();
+        
+        $this->session->set('message',
+                'Confirmation email has been sent. Please check your email to login.');
+        
+        $this->headers->redirect('');
+    }
+    
+    /**
+     * Create a new User object.
+     *
+     * @return User
+     */
+    private function createUserObject()
+    {
+        return $this->di->create(User::class);
     }
 }

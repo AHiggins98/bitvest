@@ -7,6 +7,7 @@ class Validator
     const AZ = 'abcdefghijklmnopqrstuvwxyz';
     const NUMS = '0123456789';
     const SPECIAL = '`-=[];\',./\\~!@#$%^&*()_+{}:"<>?';
+    const HEX = '0123456789abcdef';
     const MIN_PASSWORD_LENGTH = 5;
     const MAX_PASSWORD_LENGTH = 128;
     const MIN_EMAIL_LENGTH = 5;
@@ -35,5 +36,11 @@ class Validator
         return strlen($password) >= self::MIN_PASSWORD_LENGTH &&
                strlen($password) <= self::MAX_PASSWORD_LENGTH &&
                $this->isPasswordChars($password);
+    }
+    
+    public function isValidVerifyCodeString($verifyCode)
+    {
+        return strlen($verifyCode) > 1 && strlen($verifyCode) < 100 &&
+            strlen($verifyCode) == strspn($verifyCode, self::HEX);
     }
 }
