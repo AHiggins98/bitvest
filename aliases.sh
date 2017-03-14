@@ -7,3 +7,4 @@ alias git-push='git push origin HEAD'
 alias sync-master="git fetch upstream && git checkout master && git merge upstream/master && git push origin HEAD"
 alias pcf='vendor/bin/php-cs-fixer'
 alias cs-fix='pcf fix app && pcf fix tests && pcf fix public'
+alias updb='php tools/upgrade-db.php'

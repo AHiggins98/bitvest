@@ -76,4 +76,92 @@ class Mysql
         
         return $rows;
     }
+    
+    public function upgradeDb()
+    {
+        while ($this->upgradeCurrentHash());
+        echo "--------------------------------------\n";
+        echo "All done! Database upgrade successful.\n";
+        echo "--------------------------------------\n";
+    }
+    
+    private function upgradeLoop()
+    {
+        $loops = 0;
+        while (true && $loops < 99999) {
+            $ret = $this->upgradeCurrentHash();
+            
+            if ($ret == 0) {
+                break;
+            }
+            
+            $loops++;
+        }
+    }
+    
+    private function upgradeCurrentHash()
+    {
+        $hash = $this->getDbHash();
+        echo "Current DB hash is $hash\n";
+        
+        $mysqlParams = "-u {$this->user} -p{$this->pass} -h{$this->host} {$this->name}";
+        
+        $upgradeFile = __DIR__ . "/../../sql/upgrade/$hash.sql";
+        
+        echo "Looking for $upgradeFile... ";
+        
+        if (file_exists($upgradeFile)) {
+            echo "Found, applying schema changes\n";
+            $cmd = "cat $upgradeFile && cat $upgradeFile | mysql $mysqlParams";
+            $this->run($cmd);
+            $newHash = $this->getDbHash();
+            echo "New DB hash is $newHash\n";
+            
+            if ($newHash == $hash) {
+                throw new \Exception("No changes, empty upgrade script?");
+            }
+            
+            return true;
+        } else {
+            echo "Not found\n";
+        }
+        
+        return false;
+    }
+    
+    private function run($cmd)
+    {
+        echo "Running: $cmd\n";
+        exec($cmd, $output, $ret);
+        echo "Output: \n" . implode("\n", $output) . "\n";
+        echo "Return value: " . $ret . "\n";
+        if ($ret !== 0) {
+            throw new \Exception("Command returned non-zero value, exiting");
+        }
+    }
+    
+    private function getDbHash()
+    {
+        $rows = $this->query('show tables');
+        
+        $tableNames = [];
+        foreach ($rows as $table) {
+            foreach ($table as $tableName) {
+                $tableNames[] = $tableName;
+            }
+        }
+        
+        sort($tableNames);
+        
+        $tableCreateStatements = [];
+        
+        foreach ($tableNames as $tableName) {
+            $output = $this->query("show create table $tableName");
+            $tableCreateStatements[$tableName] = $output[0]['Create Table'];
+        }
+        
+        $hash = md5(serialize($tableCreateStatements));
+        
+        return $hash;
+    }
 }
