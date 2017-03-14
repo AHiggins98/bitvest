@@ -38,6 +38,7 @@ class UserController extends ViewController
         $this->loginForm = $loginForm;
         $this->signupForm = $signupForm;
         $this->users = $users;
+        $this->validator = $validator;
         $this->di = $di;
     }
 
