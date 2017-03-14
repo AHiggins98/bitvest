@@ -46,6 +46,8 @@ class UserController extends ViewController
     {
         $this->view->addVars($unfilteredRequestParams);
         
+        $this->view->addVars(['message' => $this->session->getOnce('message')]);
+        
         $loginFormState = $this->session->getOnce('loginFormState');
         
         if (isset($loginFormState)) {
@@ -116,6 +118,13 @@ class UserController extends ViewController
     
     public function accountAction(array $params)
     {
+        if (!$this->session->get('loggedIn')) {
+            $this->session->set('message', 'You must be logged-in to do that. Please login first.');
+            $this->session->set('returnUrl', 'user/account');
+            $this->headers->redirect('user/login');
+            return;
+        }
+        
         $vars = [
             'message' => $this->session->getOnce('message'),
         ];
@@ -178,6 +187,14 @@ class UserController extends ViewController
         $this->session->set('message', 'Successfully logged in as ' . $email);
         $this->session->set('loggedIn', true);
         $this->session->set('userId', $user->id);
+        
+        $returnUrl = $this->session->getOnce('returnUrl');
+        
+        if (isset($returnUrl)) {
+            $this->headers->redirect($returnUrl);
+            return;
+        }
+        
         $this->headers->redirect('user/account');
     }
     
