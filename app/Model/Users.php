@@ -21,44 +21,103 @@ class Users
     
     public function emailExists($email)
     {
+        sleep(1);
         $query = 'select count(*) as cnt from users where email = ?';
         $params = [$email];
         $results = $this->mysql->query($query, 's', $params);
         return $results[0]['cnt'] ? true : false;
     }
     
-    public function add($email, $password)
+    public function add(User $user)
     {
         $verifyCode = bin2hex(openssl_random_pseudo_bytes(8));
-        $query = 'insert into users(email, password, verify_code, created_ts) '
-                . 'values (?, ?, ?, ?)';
+        $query = 'insert into users '
+                . '(email, password, verifyCode, createdTs, updatedTs) '
+                . 'values (?, ?, ?, NOW(), NOW())';
         
-        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $hash = password_hash($user->password, PASSWORD_BCRYPT);
         
-        $params = [$email, $hash, $verifyCode, date('c')];
+        $params = [$user->email, $hash, $verifyCode];
         
-        $added = $this->mysql->query($query, 'ssss', $params);
+        $added = $this->mysql->query($query, 'sss', $params);
         
         if ($added != 1) {
             throw new \Exception('Failed to add user record');
         }
         
-        $emailParams = [
-            'email' => $email,
-            'subject' => 'Bitvest - Please verify your email address',
-            'verifyLink' => $this->config->get('baseUrl') . '/user/verify?verifyCode=' . $verifyCode . '&email=' . $email,
-        ];
-        
-        $this->email->send('verify-code', $emailParams);
+        $user->verifyCode = $verifyCode;
     }
     
     public function delete($email)
     {
-        $query = 'delete from users where email = ?';
+        $query = 'delete from users where email = ? limit 1';
         $removed = $this->mysql->query($query, 's', [$email]);
         
         if ($removed != 1) {
             throw new \Exception('Failed to delete user record');
+        }
+    }
+    
+    public function loadUser(User $user)
+    {
+        if (!isset($user->email) && !isset($user->id)) {
+            throw new \Exception('Can only load user by email or id, none specified.');
+        }
+        
+        if (isset($user->email)) {
+            $where = 'email = ?';
+            $types = 's';
+            $params = [$user->email];
+        } else {
+            $where = 'id = ?';
+            $types = 'i';
+            $params = [$user->id];
+        }
+        
+        $query = "select id, email, verifyCode from users where $where limit 1";
+        
+        $rows = $this->mysql->query($query, $types, $params);
+        
+        if (empty($rows) || !isset($rows[0])) {
+            throw new \Exception('Unable to find user.');
+        }
+        
+        $user->id = $rows[0]['id'];
+        $user->email = $rows[0]['email'];
+        $user->verifyCode = $rows[0]['verifyCode'];
+    }
+    
+    public function saveUser(User $user)
+    {
+        if (!isset($user->id)) {
+            throw new \Exception('User ID required to save');
+        }
+        
+        $set = [];
+        $params = [];
+        $typesMap = ['email' => 's', 'verifyCode' => 's', 'password' => 's'];
+        $types = [];
+        
+        foreach ($user->getModifiedProperties() as $property) {
+            $set[] = "$property = ?";
+            $params[] = $user->$property;
+            $types[] = $typesMap[$property];
+        }
+        
+        if (empty($set)) {
+            // Nothing to update
+            return;
+        }
+        
+        $params[] = $user->id;
+        $types[] = 'i';
+        
+        $query = "update users set " . implode(", ", $set) . " where id = ?";
+        
+        $updated = $this->mysql->query($query, implode('', $types), $params);
+        
+        if (!$updated == 1) {
+            throw new \Exception('Failed to update user record');
         }
     }
 }

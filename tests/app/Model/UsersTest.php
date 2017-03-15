@@ -4,9 +4,13 @@ namespace App\Util;
 use PHPUnit_Framework_TestCase;
 use App\Util\Di;
 use App\Model\Users;
+use App\Util\Mysql;
+use App\Model\User;
 
 class UsersTest extends PHPUnit_Framework_TestCase
-{   
+{
+    use \Tests\WithMockHelper;
+    
     /**
      * @group db
      */
@@ -21,10 +25,30 @@ class UsersTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($users->emailExists('a@b.com'));
     }
     
+    public function testAdd()
+    {
+        $this->setupMocks([Mysql::class, Config::class, Email::class]);
+        
+        $users = new Users($this->mocks[Mysql::class], $this->mocks[Config::class], $this->mocks[Email::class]);
+        
+        $this->mocks[Mysql::class]->expects($this->once())
+                ->method('query')
+                ->willReturn(1);
+
+        $mockUser = $this->getMockBuilder(User::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        
+        $mockUser->email = 'foo@bar.com';
+        $mockUser->password = 'pass1234';
+        
+        $users->add($mockUser);
+    }
+    
     /**
      * @group db
      */
-    public function testAdd()
+    public function testAddMysql()
     {
         /** @var Users $users */
         $users = Di::getInstance()->get(Users::class);
@@ -35,7 +59,11 @@ class UsersTest extends PHPUnit_Framework_TestCase
         } catch (\Exception $e) {
         }
         
-        $users->add('support@whebsite.com', 'pass123');
+        $user = Di::getInstance()->create(User::class);
+        $user->email = 'support@whebsite.com';
+        $user->password = 'pass123';
+        
+        $users->add($user);
         
         // Verify
         $this->assertTrue($users->emailExists('support@whebsite.com'));

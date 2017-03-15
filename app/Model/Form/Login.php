@@ -20,10 +20,16 @@ class Login extends AbstractForm
         $this->auth = $auth;
     }
     
+    /**
+     * Validates the parameters. If the validation passes, the class values
+     * will be updated to what was submitted.
+     *
+     * @param array $params
+     * @throws \Exception
+     */
     public function validate(array $params)
     {
         if (isset($params['email']) && isset($params['password'])) {
-         
             $this->hasErrors = false;
             
             $validEmailChars = $this->validator->isEmailChars($params['email']);
@@ -33,10 +39,9 @@ class Login extends AbstractForm
             if (!$validEmailChars || !$validPasswordChars || !$correctPassword) {
                 $this->errors['email'] = 'Incorrect email/password.';
                 $this->hasErrors = true;
-            } 
+            }
             
             $this->values['email'] = $params['email'];
-            
         } else {
             throw new \Exception('Missing form parameters.');
         }

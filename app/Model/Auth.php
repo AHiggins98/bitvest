@@ -27,6 +27,6 @@ class Auth
             return false;
         }
         
-        return password_verify($password, $result[0]['password']);                
+        return password_verify($password, $result[0]['password']);
     }
 }

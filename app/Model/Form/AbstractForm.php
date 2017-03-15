@@ -16,7 +16,7 @@ abstract class AbstractForm
         $this->fields = $fields;
         
         // Initialize to an array with empty string (no error) for each field.
-        $this->errors = array_combine($fields, 
+        $this->errors = array_combine($fields,
                 array_fill(0, count($fields), ''));
         
         $this->values = $this->errors;

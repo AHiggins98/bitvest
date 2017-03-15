@@ -7,4 +7,4 @@ use App\Util\Autoloader;
 use App\Util\Di;
 
 Di::getInstance()->get(Autoloader::class)->register();
-
+Di::getInstance()->get(Autoloader::class)->registerTests();

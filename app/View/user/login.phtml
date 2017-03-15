@@ -1,30 +1,11 @@
 <?php include(__DIR__ . '/../header.phtml'); ?>
-<h2>Login</h2>
-<form class="form-horizontal" method="post" action="<?=$vars['baseUrl']?>/user/login-submit">
-  <div class="control-group">
-    <label class="control-label" for="inputEmail">Email</label>
-    <div class="controls">
-      <input type="text" id="inputEmail" name="email" placeholder="Email">
-      <div style='color:red'><?=$vars['formErrors']['email']?></div>
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label" for="inputPassword">Password</label>
-    <div class="controls">
-      <input type="password" id="inputPassword" name="password" placeholder="Password">
-    </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
-      <label class="checkbox">
-        <input type="checkbox"> Remember me
-      </label>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-    </div>
-  </div>
-</form>
 
+<h3 class="muted">User &raquo; Login</h3>
 
+<?php if (isset($vars['message'])) { ?>
+<div class="alert alert-success"><?=$vars['message']?></div>
+<?php } ?>
 
+<?php include('login-form.phtml'); ?>
 
 <?php include(__DIR__ . '/../footer.phtml'); ?>

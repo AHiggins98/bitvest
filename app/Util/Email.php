@@ -41,7 +41,7 @@ class Email
         
         // @codeCoverageIgnoreStart
         if ($this->emailEnabled) {
-            $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@whebsite.com\r\nReply-to: support@whebsite.com");            
+            $result = mail($vars['email'], $vars['subject'], $properTemplate, "From: support@whebsite.com\r\nReply-to: support@whebsite.com");
         } else {
             $msg = '<pre>';
             $msg .= "Displaying this email in your browser because your configuration has emailEnabled=false.\n";
