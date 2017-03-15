@@ -25,6 +25,8 @@ $route->addResources([
     'user/signup-submit',
     'user/logout',
     'user/verify',
+    'user/needs-verification',
+    'user/resend-verification',
     'help/faq',
     'user/account',
     'biz/start',

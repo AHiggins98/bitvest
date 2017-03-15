@@ -1,4 +1,4 @@
-REATE TABLE IF NOT EXISTS `btc_transaction_history` (
+CREATE TABLE IF NOT EXISTS `btc_transaction_history` (
 `id` int(10) unsigned NOT NULL,
   `type` varchar(255) NOT NULL,
   `from_user_id` int(11) DEFAULT NULL,

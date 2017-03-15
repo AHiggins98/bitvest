@@ -10,6 +10,9 @@ use App\Model\Auth;
 use App\Model\Form\Login;
 use App\Model\Form\Signup;
 use App\Model\Users;
+use App\Model\User;
+use App\Util\Validator;
+use App\Util\Di;
 
 class UserControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,11 +30,17 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             Login::class,
             Signup::class,
             Users::class,
+            Validator::class,
+            Di::class,
         ]);
         
         $this->mocks[Config::class]->expects($this->any())
                 ->method('getConfig')
                 ->willReturn([]);
+        
+        $this->mocks[Di::class]->expects($this->any())
+                ->method('getInstance')
+                ->willReturn($this->mocks[Di::class]);
         
         return new UserController(
             $this->mocks[Config::class],
@@ -42,7 +51,9 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $this->mocks[Auth::class],
             $this->mocks[Login::class],
             $this->mocks[Signup::class],
-            $this->mocks[Users::class]
+            $this->mocks[Users::class],
+            $this->mocks[Validator::class],
+            $this->mocks[Di::class]
         );
     }
     
@@ -78,6 +89,15 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
                 ->method('redirect')
                 ->with('user/account');
         
+        $mockUser = $this->getMockBuilder(User::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        
+        $this->mocks[Di::class]->expects($this->once())
+                ->method('create')
+                ->with(User::class)
+                ->willReturn($mockUser);
+        
         $userController->loginSubmitAction($params);
     }
     
@@ -112,6 +132,15 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $this->mocks[HeaderParams::class]->expects($this->once())
                 ->method('redirect')
                 ->with('');
+        
+        $mockUser = $this->getMockBuilder(User::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        
+        $this->mocks[Di::class]->expects($this->once())
+                ->method('create')
+                ->with(User::class)
+                ->willReturn($mockUser);
         
         $userController->signupSubmitAction($params);
     }

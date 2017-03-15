@@ -2,6 +2,10 @@
 
 <h3 class="muted">User &raquo; Login</h3>
 
+<?php if (isset($vars['message'])) { ?>
+<div class="alert alert-success"><?=$vars['message']?></div>
+<?php } ?>
+
 <?php include('login-form.phtml'); ?>
 
 <?php include(__DIR__ . '/../footer.phtml'); ?>
