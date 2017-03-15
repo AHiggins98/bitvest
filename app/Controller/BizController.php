@@ -48,6 +48,20 @@ class BizController extends ViewController
             'message' => $this->session->getOnce('message'),
             'loggedIn' => $this->session->get('loggedIn'),
         ];
+        if ($p['filter'] == '1') {
+            $userid = $this->session->get('Userid');
+            $rows = $this->businesses->listAll($userid);
+        }
+        elseif ($p['filter'] == '2') {
+            $rows = $this->businesses->listAll();
+        }
+        elseif ($p['filter'] == '3') {
+            $rows = $this->businesses->listAll(null, true);
+        }
+        else {
+            $rows = $this->businesses->listAll();
+        }
+        $this->view->addVars(['rows' => $rows]);
         $this->view->addVars($vars);
         $this->view->render('biz/list');
     }

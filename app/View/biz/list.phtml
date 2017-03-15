@@ -1,6 +1,38 @@
 <?php include(__DIR__ . '/../header.phtml'); ?>
+<?php use app\util\mysql;
+	  use app\model\Businesses;
+	  use app\controller\BizController;
+ ?>
+ <script>
+ 	function listFilter(id) {
+
+        if (window.XMLHttpRequest) {
+           
+            xmlhttp = new XMLHttpRequest();
+        } else {
+           
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("Bizlist").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","BizList.php?num="+id,true);
+        xmlhttp.send();
+    };
+ </script>
 
 <h3 class="muted">Businesses</h3>
+
+<form>
+<select name="Filter" onchange="listFilter(this.value)">
+  <option value="">Filter by...</option>
+  <option value="1">My Businesses</option>
+  <option value="2">All Businesses</option>
+  <option value="3">Sort By Date</option>
+  </select>
+</form>
 
 <?php if (isset($vars['message'])) { ?>
 <div class="alert alert-success"><?=$vars['message']?></div>
@@ -12,5 +44,23 @@
 <p>
 List of All Businesses Goes Here
 </p>
+
+<div id="Bizlist">
+
+<?php
+/* foreach ($vars['rows'] as $row)
+		{
+			echo '<table><br>
+					<thead>'.$row['businessname'].'</thead><br><br>
+				<tbody>
+					<tr>Founded by '.$row['founder'].'</tr><br><br>
+					<tr>Created on '.$row['created_ts'].'</tr><br><br>
+					<tr>www.bitvest.com/biz/list/'.$row['shortname'].'</tr><br><br>
+				</tbody>
+			</table>';
+				} */
+?>
+
+</div>
 
 <?php include(__DIR__ . '/../footer.phtml'); ?>

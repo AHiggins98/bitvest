@@ -21,8 +21,8 @@ class Businesses
     
     public function add($foundername, $businessname, $shortname)
     {
-        $sql = "INSERT INTO businesses (founder, businessname, shortname)
-        VALUES ('".$foundername."', '".$businessname."', '".$shortname."')";
+        $sql = "INSERT INTO businesses (founder, businessname, shortname, created_ts)
+        VALUES ('".$foundername."', '".$businessname."', '".$shortname."', NOW())";
 
         if ($this->mysql->query($sql) != 1) {
             throw new \Exception("Was not able to add businesses.");
@@ -52,4 +52,27 @@ class Businesses
             return true;
         }
     }
+
+    public function listAll($userid, $sortbydate)
+    {   
+        if ($userid != null) {
+                $sql = "SELECT * 
+        FROM businesses WHERE 
+        founder =  $userid" 
+        ;
+        }
+        elseif ($sortbydate == true) {
+        $sql = 'SELECT * FROM businesses 
+        SORT BY created_ts';
+        }
+        else {
+        $sql = "SELECT * 
+        FROM businesses";
+        }
+        
+        $rows = $this->mysql->query($sql);
+        return $rows;
+    }
 }
+
+
