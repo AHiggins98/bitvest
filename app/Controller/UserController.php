@@ -161,6 +161,12 @@ class UserController extends ViewController
         $user->email = $p['email'];
         $this->users->loadUser($user);
         
+        if (!isset($user->verifyCode)) {
+            sleep(1);
+            $this->session->set('message', 'Email has already been verified. Please login.');
+            $this->headers->redirect('user/login');
+        }
+        
         if ($user->verifyCode == $p['verifyCode']) {
             // Clear the verifyCode for the user and save it
             $user->verifyCode = null;

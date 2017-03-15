@@ -85,20 +85,6 @@ class Mysql
         echo "--------------------------------------\n";
     }
     
-    private function upgradeLoop()
-    {
-        $loops = 0;
-        while (true && $loops < 99999) {
-            $ret = $this->upgradeCurrentHash();
-            
-            if ($ret == 0) {
-                break;
-            }
-            
-            $loops++;
-        }
-    }
-    
     private function upgradeCurrentHash()
     {
         $hash = $this->getDbHash();
@@ -111,9 +97,23 @@ class Mysql
         echo "Looking for $upgradeFile... ";
         
         if (file_exists($upgradeFile)) {
-            echo "Found, applying schema changes\n";
-            $cmd = "cat $upgradeFile && cat $upgradeFile | mysql $mysqlParams";
-            $this->run($cmd);
+            echo "Found.\n";
+            echo "Creating DB backup.\n";
+            $backupFile = __DIR__ . "/../../sql/backups/backup-" . date("Y-m-d-H-i-s") . ".sql";
+            $dumpParams = "--single-transaction --routines --triggers --events";
+            $this->run("mysqldump $mysqlParams $dumpParams > $backupFile");
+            
+            echo "Compressing DB backup.\n";
+            $this->run("gzip $backupFile");
+            $this->run("ls -l $backupFile.gz");
+            
+            // Sanity check
+            if (filesize($backupFile . '.gz') < 1000) {
+                throw new \Exception("Failed to backup (file too small? empty backup?)");
+            }
+            
+            echo "Applying schema changes.\n";
+            $this->run("cat $upgradeFile && cat $upgradeFile | mysql $mysqlParams");
             $newHash = $this->getDbHash();
             echo "New DB hash is $newHash\n";
             
